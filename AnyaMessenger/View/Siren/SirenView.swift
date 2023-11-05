@@ -1,10 +1,10 @@
+////
+////  SirenView.swift
+////  AnyaMessenger
+////
+////  Created by chiamakabrowneyes on 11/4/23.
+////
 //
-//  SirenView.swift
-//  AnyaMessenger
-//
-//  Created by chiamakabrowneyes on 11/4/23.
-//
-
 //import SwiftUI
 //
 //struct SirenView: View {
@@ -12,17 +12,17 @@
 //    @ObservedObject var viewModel: SirenViewModel
 //    @State var speed: Double = 50
 //    @State var isEditing = false
-//
-//
+//    
+//    
 //    @State var messageText: String = ""
-//    @State var selectedImage: UIImage?
-//
+//    @State private var selectedImage: UIImage?
+//    
 //    //initializes the required parameters for Chat view
 //    init(user: User) {
 //        self.user = user
 //        self.viewModel = SirenViewModel(user: user)
 //    }
-//
+//    
 //    var body: some View {
 //        var riskDescription: String {
 //                switch Int(speed) {
@@ -40,11 +40,11 @@
 //                    return "Very Dangerous risk level"
 //                }
 //            }
-//
+//        
 //        VStack {
 //            Text("\(Int(speed))")
 //                .foregroundColor(Color("darkPurple"))
-//
+//            
 //            Slider(
 //                value: $speed,
 //                in: 0...100,
@@ -62,15 +62,15 @@
 //            .frame(width: 300)
 //            .foregroundColor(Color("darkPurple"))
 //            .accentColor(Color("darkPink"))
-//
-//
+//            
+//            
 //            Text(riskDescription)
 //                .foregroundColor(Color("darkPurple"))
-//
-//
+//                
+//                
 //            Spacer()
 //                .frame(height: 50)
-//
+//            
 //            Button("Send Siren Call") {
 //                Task {
 //                    try await viewModel.sendSiren(riskDescription)
@@ -82,5 +82,11 @@
 //            .bold()
 //            .tint(.black)
 //        }
+//    }
+//}
+//
+//struct SirenView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SirenView()
 //    }
 //}

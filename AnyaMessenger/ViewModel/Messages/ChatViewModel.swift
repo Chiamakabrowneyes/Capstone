@@ -48,7 +48,18 @@ class ChatViewModel: ObservableObject {
             }
         }
     }
-   
+    
+    func send(type: MessageType) {
+        switch type {
+        case .text(let messageText):
+            sendMessage(messageText)
+            
+        case .image(let image):
+            ImageUploader.uploadImage(image: image, type: .message) { imageUrl in
+                self.sendMessage("Attachment: 1 image", imageUrl)
+            }
+        }
+    }
     
     private func sendMessage(_ messageText: String, _ imageUrl: String? = nil) {
         guard let currentUid = AuthViewModel.shared.currentUser?.id else { return }

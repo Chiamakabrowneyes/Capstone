@@ -1,22 +1,11 @@
-//
-//  ChatsView.swift
-//  AnyaMessenger
-//
-//  Created by chiamakabrowneyes on 9/30/23.
-//
-
 import SwiftUI
 
-/**
- The ChatView struct represents a SwiftUI view designed for displaying a chat interface where users can send and receive messages
- */
 struct ChatView: View {
     let user: User
     @ObservedObject var viewModel: ChatViewModel
     @State private var messageText: String = ""
     @State private var selectedImage: UIImage?
     
-    //initializes the required parameters for Chat view
     init(user: User) {
         self.user = user
         self.viewModel = ChatViewModel(user: user)
@@ -24,7 +13,7 @@ struct ChatView: View {
     
     var body: some View {
         VStack {
-            //display a list of chat messages.
+            
             ScrollViewReader { value in
                 ScrollView {
                     VStack(alignment: .leading, spacing: 12) {
@@ -38,7 +27,7 @@ struct ChatView: View {
                     value.scrollTo(id)
                 })
             }
-            //creates entry point for user to write new messages
+                        
             CustomInputView(inputText: $messageText,
                             selectedImage: $selectedImage,
                             action: sendMessage)
@@ -48,7 +37,6 @@ struct ChatView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    //creates a system for adding new messages to chatview
     func sendMessage() {
         if let image = selectedImage {
             viewModel.send(type: .image(image))

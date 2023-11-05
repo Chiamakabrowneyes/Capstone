@@ -62,7 +62,7 @@
 //                                   "toId": uid,
 //                                   "read": false,
 //                                   "timestamp": Timestamp(date: Date())]
-//        
+//
 //        if let imageUrl = imageUrl {
 //            data["imageUrl"] = imageUrl
 //        }
