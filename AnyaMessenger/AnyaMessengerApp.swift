@@ -1,17 +1,22 @@
 //
-//  AnyaMessengerApp.swift
+//  AnyaMessenger.swift
 //  AnyaMessenger
 //
-//  Created by chiamakabrowneyes on 9/30/23.
+//  Created by chiamakabrowneyes on 10/25/23.
 //
 
 import SwiftUI
+import Firebase
 
-@main
+//@main
 struct AnyaMessengerApp: App {
+
+    init() {
+        FirebaseApp.configure()
+    }
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(AuthViewModel.shared)
         }
     }
 }
