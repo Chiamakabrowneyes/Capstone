@@ -78,6 +78,8 @@
 		7C775AE42AEA28E10050D996 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C775AE32AEA28E10050D996 /* GoogleService-Info.plist */; };
 		7C8A25AD2AF70A4C0003EA87 /* SirenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8A25AC2AF70A4C0003EA87 /* SirenView.swift */; };
 		7C8A25B02AF7165C0003EA87 /* SirenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8A25AF2AF7165C0003EA87 /* SirenViewModel.swift */; };
+		7C8A25B22AFA813E0003EA87 /* CreateSirenListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8A25B12AFA813D0003EA87 /* CreateSirenListModel.swift */; };
+		7C8A25B42AFA831F0003EA87 /* AddSirenHerosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8A25B32AFA831E0003EA87 /* AddSirenHerosViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -146,6 +148,8 @@
 		7C775AE32AEA28E10050D996 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7C8A25AC2AF70A4C0003EA87 /* SirenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SirenView.swift; sourceTree = "<group>"; };
 		7C8A25AF2AF7165C0003EA87 /* SirenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SirenViewModel.swift; sourceTree = "<group>"; };
+		7C8A25B12AFA813D0003EA87 /* CreateSirenListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSirenListModel.swift; sourceTree = "<group>"; };
+		7C8A25B32AFA831E0003EA87 /* AddSirenHerosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSirenHerosViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -395,6 +399,8 @@
 			isa = PBXGroup;
 			children = (
 				7C8A25AF2AF7165C0003EA87 /* SirenViewModel.swift */,
+				7C8A25B12AFA813D0003EA87 /* CreateSirenListModel.swift */,
+				7C8A25B32AFA831E0003EA87 /* AddSirenHerosViewModel.swift */,
 			);
 			path = Siren;
 			sourceTree = "<group>";
@@ -492,6 +498,7 @@
 				7C66FCFA2AC8E5770060AE8E /* SettingsView.swift in Sources */,
 				7C66FCF82AC8E5610060AE8E /* ChatView.swift in Sources */,
 				7C66FD072AC905170060AE8E /* StatusSelectorView.swift in Sources */,
+				7C8A25B22AFA813E0003EA87 /* CreateSirenListModel.swift in Sources */,
 				7C66FCEE2AC8C8930060AE8E /* SignupView.swift in Sources */,
 				7C775A622AE43AF80050D996 /* ChannelsMessageView.swift in Sources */,
 				7C775A8B2AE443EF0050D996 /* LazyView.swift in Sources */,
@@ -540,6 +547,7 @@
 				7C66FD1F2AC964F80060AE8E /* Extensions.swift in Sources */,
 				7C775A3E2AD8FE630050D996 /* ImageUploader.swift in Sources */,
 				7C66FD152AC943CB0060AE8E /* ImagePicker.swift in Sources */,
+				7C8A25B42AFA831F0003EA87 /* AddSirenHerosViewModel.swift in Sources */,
 				7C66FD272AC9D5D70060AE8E /* TextMessage.swift in Sources */,
 				7C66FCF32AC8E2280060AE8E /* MainTabView.swift in Sources */,
 				7C8A25AD2AF70A4C0003EA87 /* SirenView.swift in Sources */,

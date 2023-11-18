@@ -16,7 +16,9 @@ struct NewMessageView: View {
     @Binding var show: Bool
     @Binding var startChat: Bool
     @Binding var user: User?
+    @State private var sirenListId: String?
     @ObservedObject var viewModel = NewMessageViewModel(config: .chat)
+    
     
     var body: some View {
         ScrollView {
@@ -35,6 +37,15 @@ struct NewMessageView: View {
                         self.show.toggle()
                         self.startChat.toggle()
                         self.user = user
+                        
+                        viewModel.addUserToSirenList(userToAddId: user.id ?? "unknown") { success in
+                            if success {
+                                print("User successfully added to siren list.")
+                            }
+                            else {
+                                print("Failed to add user to siren list.")
+                            }
+                        }
                     }, label: {
                         UserCell(user: user)
                     })
@@ -42,4 +53,5 @@ struct NewMessageView: View {
             }.padding(.leading)
         }
     }
+    
 }

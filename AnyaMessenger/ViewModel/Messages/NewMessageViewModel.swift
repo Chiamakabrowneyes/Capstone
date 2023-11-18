@@ -16,7 +16,7 @@ enum NewMessageConfiguration {
     case chat
     case group
 }
-
+//how do i add the user to the sirenlist from this class instead
 class NewMessageViewModel: ObservableObject {
     @Published var users = [User]()
     @Published var selectableUsers = [SelectableUser]()
@@ -58,6 +58,25 @@ class NewMessageViewModel: ObservableObject {
     func filteredUsers(_ query: String) -> [User] {
         let lowercasedQuery = query.lowercased()
         return users.filter({ $0.fullname.lowercased().contains(lowercasedQuery) || $0.username.contains(lowercasedQuery) })
+    }
+    
+    func addUserToSirenList(userToAddId: String, completion: @escaping (Bool) -> Void) {
+        guard let currentUserId = AuthViewModel.shared.currentUser?.id else {
+            completion(false)
+            return
+        }
+
+        let sirenListRef = COLLECTION_SIRENS.document(currentUserId)
+        sirenListRef.updateData([
+            "uids": FieldValue.arrayUnion([userToAddId])
+        ]) { error in
+            if let error = error {
+                print("Error adding user to siren list: \(error)")
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
     }
 }
 

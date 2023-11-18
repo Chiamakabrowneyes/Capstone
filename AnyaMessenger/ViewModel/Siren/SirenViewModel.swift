@@ -1,76 +1,77 @@
-////
-////  SirenViewModel.swift
-////  AnyaMessenger
-////
-////  Created by chiamakabrowneyes on 11/4/23.
-////
 //
-//import SwiftUI
-//import Firebase
+//  SirenViewModel.swift
+//  AnyaMessenger
 //
-//class SirenViewModel: ObservableObject {
-//    let user: User
+//  Created by chiamakabrowneyes on 11/4/23.
 //
-//    @Published var messages = [TextMessage]()
-//    @Published var messageToSetVisible: String?
-//
-//    init(user: User) {
-//        self.user = user
-//        fetchMessages()
-//    }
-//
-//    func fetchMessages() {
-//        guard let currentUid = AuthViewModel.shared.userSession?.uid else { return }
-//        guard let uid = user.id else { return }
-//
-//        let query = COLLECTION_MESSAGES
-//            .document(currentUid)
-//            .collection(uid)
-//            .order(by: "timestamp", descending: false)
-//
-//        query.addSnapshotListener { snapshot, error in
-//            guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }
-//            let messages = changes.compactMap({ try? $0.document.data(as: TextMessage.self) })
-//
-//            self.messages.append(contentsOf: messages)
-//
-//            for (index, message) in self.messages.enumerated() where message.fromId != currentUid {
-//                self.messages[index].user = self.user
-//
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                    self.messageToSetVisible = self.messages.last?.id
-//                }
-//            }
-//        }
-//    }
-//
-//
-//    func sendSiren(_ messageText: String, _ imageUrl: String? = nil) async throws {
-//        guard let currentUid = AuthViewModel.shared.currentUser?.id else { return }
-//        guard let uid = user.id else { return }
-//
-//        let currentUserRef = COLLECTION_MESSAGES.document(currentUid).collection(uid).document()
-//        let receivingUserRef = COLLECTION_MESSAGES.document(uid).collection(currentUid)
-//        let receivingRecentRef = COLLECTION_MESSAGES.document(uid).collection("recent-messages")
-//        let currentRecentRef =  COLLECTION_MESSAGES.document(currentUid).collection("recent-messages")
-//
-//        let messageID = currentUserRef.documentID
-//
-//        var data: [String: Any] = ["text": messageText,
-//                                   "id": messageID,
-//                                   "fromId": currentUid,
-//                                   "toId": uid,
-//                                   "read": false,
-//                                   "timestamp": Timestamp(date: Date())]
-//
-//        if let imageUrl = imageUrl {
-//            data["imageUrl"] = imageUrl
-//        }
-//
-//        currentUserRef.setData(data)
-//        currentRecentRef.document(uid).setData(data)
-//
-//        receivingUserRef.document(messageID).setData(data)
-//        receivingRecentRef.document(currentUid).setData(data)
-//    }
-//}
+
+import SwiftUI
+import Firebase
+
+class SirenViewModel: ObservableObject {
+    let user: User
+    
+    @Published var messages = [TextMessage]()
+    @Published var messageToSetVisible: String?
+    
+    init(user: User) {
+        self.user = user
+    }
+    
+    func fetchSirenListForUser(userId: String, completion: @escaping ([String]?, Error?) -> Void) {
+        COLLECTION_SIRENS.whereField("creator", isEqualTo: userId).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching siren list: \(error)")
+                completion(nil, error)
+            } else if let documents = querySnapshot?.documents, !documents.isEmpty {
+                // Assuming each user has only one siren list
+                let sirenListDocument = documents.first!
+                if let uids = sirenListDocument.data()["uids"] as? [String] {
+                    completion(uids, nil)
+                } else {
+                    completion(nil, nil)
+                }
+            } else {
+                completion(nil, nil)
+            }
+        }
+    }
+    
+    func sendMessageToSirenList(messageText: String) {
+        fetchSirenListForUser(userId: user.id ?? "unknown") { [weak self] uids, error in
+            guard let self = self, let uids = uids, error == nil else {
+                print("Error or no users in siren list: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+
+            for uid in uids {
+                self.sendSirenMessage(messageText, receiverId: uid)
+            }
+        }
+    }
+
+    func sendSirenMessage(_ messageText: String, receiverId: String) {
+        guard let currentUid = AuthViewModel.shared.currentUser?.id else { return }
+        
+        let currentUserRef = COLLECTION_MESSAGES.document(currentUid).collection(receiverId).document()
+        let receivingUserRef = COLLECTION_MESSAGES.document(receiverId).collection(currentUid)
+        let receivingRecentRef = COLLECTION_MESSAGES.document(receiverId).collection("recent-messages")
+        let currentRecentRef = COLLECTION_MESSAGES.document(currentUid).collection("recent-messages")
+        
+        let messageID = currentUserRef.documentID
+        
+        let data: [String: Any] = [
+            "text": messageText,
+            "id": messageID,
+            "fromId": currentUid,
+            "toId": receiverId,
+            "read": false,
+            "timestamp": Timestamp(date: Date())
+        ]
+        
+        currentUserRef.setData(data)
+        currentRecentRef.document(receiverId).setData(data)
+        receivingUserRef.document(messageID).setData(data)
+        receivingRecentRef.document(currentUid).setData(data)
+    }
+}

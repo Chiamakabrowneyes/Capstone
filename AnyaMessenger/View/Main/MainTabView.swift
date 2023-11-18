@@ -8,12 +8,12 @@ struct MainTabView: View {
         if let user = viewModel.currentUser {
             NavigationView {
                 TabView(selection: $selectedIndex) {
-//                    SirenView(user: user)
-//                        .tabItem {
-//                            Image(systemName: "cube")
-//                            Text("Siren")
-//                        }
-//                        .tag(0)
+                    SirenView(user: user)
+                        .tabItem {
+                            Image(systemName: "cube")
+                            Text("Siren")
+                        }
+                        .tag(0)
                     ConversationsView()
                         .tabItem {
                             Image(systemName: "bubble.left")
@@ -44,7 +44,7 @@ struct MainTabView: View {
     
     var tabTitle: String {
         switch selectedIndex {
-//        case 0: return "Siren"
+        case 0: return "Siren"
         case 1: return "Chats"
         case 2: return "Channels"
         case 3: return "Settings"
@@ -52,4 +52,3 @@ struct MainTabView: View {
         }
     }
 }
-

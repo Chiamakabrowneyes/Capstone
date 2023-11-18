@@ -14,6 +14,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseAuth
 
 class AuthViewModel: NSObject, ObservableObject {
     @Published var userSession: FirebaseAuth.User?
@@ -45,7 +46,8 @@ class AuthViewModel: NSObject, ObservableObject {
     }
     
     func register(withEmail email: String, password: String, fullname: String, username: String) {
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] result, error in
+            guard let self = self else { return }
             if let error = error {
                 print("DEBUG: Failed to register with error: \(error.localizedDescription)")
                 return
@@ -53,18 +55,45 @@ class AuthViewModel: NSObject, ObservableObject {
 
             guard let user = result?.user else { return }
             
-            let data: [String: Any] = ["email": email,
-                                       "username": username,
-                                       "fullname": fullname,
-                                       "uid": user.uid,
-                                       "status": UserStatus.notConfigured.rawValue]
+            let data: [String: Any] = [
+                "email": email,
+                "username": username,
+                "fullname": fullname,
+                "uid": user.uid,
+                "status": UserStatus.notConfigured.rawValue
+            ]
             
-            COLLECTION_USERS.document(user.uid).setData(data) { _ in
-                self.tempCurrentUser = user
-                self.didRegister = true
+            // Create or get a reference to the siren list document with the user's UID
+            let sirenListRef = COLLECTION_SIRENS.document(user.uid)
+            
+            // Set the user data and the siren list in a batch to ensure both operations complete
+            let batch = Firestore.firestore().batch()
+            
+            // Set user data in USERS collection
+            let userRef = COLLECTION_USERS.document(user.uid)
+            batch.setData(data, forDocument: userRef)
+            
+            // Set siren list data in SIRENS collection
+            let sirenListData: [String: Any] = [
+                "name": "\(username)'s Siren List",
+                "creator": user.uid,
+                "uids": [user.uid]  // Start with the user's UID in the list
+            ]
+            batch.setData(sirenListData, forDocument: sirenListRef)
+            
+            // Commit the batch
+            batch.commit { error in
+                if let error = error {
+                    print("Error writing batch: \(error)")
+                } else {
+                    print("Batch write succeeded.")
+                    self.tempCurrentUser = user
+                    self.didRegister = true
+                }
             }
         }
     }
+
     
     func uploadProfileImage(_ image: UIImage) {
         guard let uid = tempCurrentUser?.uid else { return }
@@ -99,5 +128,23 @@ class AuthViewModel: NSObject, ObservableObject {
             self.currentUser = user
         }
     }
+    
+    func fetchSirenListId(completion: @escaping (String?) -> Void) {
+            guard let currentUid = self.currentUser?.id else {
+                completion(nil)
+                return
+            }
+
+            COLLECTION_SIRENS.whereField("creator", isEqualTo: currentUid).getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("Error getting siren list: \(error.localizedDescription)")
+                    completion(nil)
+                } else {
+                    // Assuming each user has only one siren list they've created
+                    let document = querySnapshot?.documents.first
+                    completion(document?.documentID)
+                }
+            }
+        }
 }
 

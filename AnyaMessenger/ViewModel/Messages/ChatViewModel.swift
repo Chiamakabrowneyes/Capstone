@@ -34,7 +34,7 @@ class ChatViewModel: ObservableObject {
             .order(by: "timestamp", descending: false)
         
         query.addSnapshotListener { snapshot, error in
-            guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }
+            guard let changes = snapshot?.documentChanges.filter({ $0.type == DocumentChangeType.added }) else { return }
             let messages = changes.compactMap({ try? $0.document.data(as: TextMessage.self) })
             
             self.messages.append(contentsOf: messages)
