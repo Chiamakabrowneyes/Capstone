@@ -9,7 +9,7 @@ import SwiftUI
 
 //This SettingsCell Class creates the UI properties in the settings view
 struct SettingsCell: View {
-    let viewModel: SettingsCellViewModel
+    let viewModel: SettingsCellSceneModel
     
     var body: some View {
         VStack {
@@ -45,6 +45,6 @@ struct SettingsCell: View {
 
 struct SettingsCell_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsCell(viewModel: SettingsCellViewModel(rawValue: 2)!)
+        SettingsCell(viewModel: SettingsCellSceneModel(rawValue: 2)!)
     }
 }

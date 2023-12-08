@@ -10,8 +10,8 @@ import SwiftUI
 /**
  This SelectStatus View allows user to interact with the view and change their status cell.
  */
-struct SelectStatusView: View {
-    @ObservedObject var viewModel: EditProfileViewModel
+struct SelectStatusScene: View {
+    @ObservedObject var viewModel: EditProfileSceneModel
     
     var body: some View {
         ZStack(alignment: .leading) {

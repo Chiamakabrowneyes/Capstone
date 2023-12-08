@@ -13,7 +13,7 @@ struct SignupView: View {
     @State var password: String = ""
     @State var username: String = ""
     
-    @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var viewModel: AuthSceneModel
     
 
     

@@ -8,8 +8,8 @@
 import SwiftUI
 import Kingfisher
 
-struct ChannelMessageView: View {
-    let viewModel: ChannelMessageViewModel
+struct ChannelMessageScene: View {
+    let viewModel: ChannelMessageSceneModel
     
     var body: some View {
         HStack {

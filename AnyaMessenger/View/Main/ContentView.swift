@@ -10,13 +10,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var viewModel: AuthSceneModel
     //Determining the display interface when the app is launch depending on whether the user is logged in
     
     var body: some View {
         Group {
             if viewModel.userSession != nil {
-                MainTabView()
+                MainTabScene()
             } else {
                 LoginView()
             }

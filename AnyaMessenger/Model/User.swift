@@ -20,7 +20,7 @@ struct User: Identifiable, Hashable, Decodable {
     var status: UserStatus
     var fcmToken: String?
     
-    var isCurrentUser: Bool { return AuthViewModel.shared.userSession?.uid == id }
+    var isCurrentUser: Bool { return AuthSceneModel.shared.userSession?.uid == id }
 }
 
 /**

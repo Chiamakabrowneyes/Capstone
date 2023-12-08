@@ -12,7 +12,7 @@ import Kingfisher
  Creates the display object for a user that has an ongoing conversation with the active user
  */
 struct ConversationCell: View {
-    let viewModel: MessageViewModel
+    let viewModel: MessageSceneModel
     
     var body: some View {
         VStack(alignment: .leading) {

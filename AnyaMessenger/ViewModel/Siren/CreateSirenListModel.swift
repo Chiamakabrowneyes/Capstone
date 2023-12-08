@@ -17,7 +17,7 @@ class CreateSirenListModel: ObservableObject {
     }
     
     func createSirenList(name: String, completion: @escaping (Bool, String?) -> Void) {
-        guard let currentUser = AuthViewModel.shared.currentUser,
+        guard let currentUser = AuthSceneModel.shared.currentUser,
               let currentUid = currentUser.id else {
             completion(false, nil)
             return

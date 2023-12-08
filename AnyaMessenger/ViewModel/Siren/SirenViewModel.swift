@@ -51,7 +51,7 @@ class SirenViewModel: ObservableObject {
     }
 
     func sendSirenMessage(_ messageText: String, receiverId: String) {
-        guard let currentUid = AuthViewModel.shared.currentUser?.id else { return }
+        guard let currentUid = AuthSceneModel.shared.currentUser?.id else { return }
         
         let currentUserRef = COLLECTION_MESSAGES.document(currentUid).collection(receiverId).document()
         let receivingUserRef = COLLECTION_MESSAGES.document(receiverId).collection(currentUid)

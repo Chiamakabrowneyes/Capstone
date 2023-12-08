@@ -16,7 +16,7 @@ struct AnyaMessengerApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(AuthViewModel.shared)
+            ContentView().environmentObject(AuthSceneModel.shared)
         }
     }
 }

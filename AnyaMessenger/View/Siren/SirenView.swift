@@ -42,6 +42,9 @@ struct SirenView: View {
             }
         
         VStack {
+            LocationView(user: user)
+                        .frame(width: 300, height: 300)
+            
             Text("\(Int(speed))")
                 .foregroundColor(Color("darkPurple"))
             
@@ -84,4 +87,5 @@ struct SirenView: View {
         }
     }
 }
+
 
