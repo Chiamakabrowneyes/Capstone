@@ -7,15 +7,18 @@
 
 import SwiftUI
 import Firebase
+import CoreLocation
 
 class SirenViewModel: ObservableObject {
     let user: User
-    
     @Published var messages = [TextMessage]()
     @Published var messageToSetVisible: String?
+    @ObservedObject var locationViewModel: LocationViewModel
+    private let geocoder = CLGeocoder()
     
     init(user: User) {
         self.user = user
+        self.locationViewModel = LocationViewModel(user: user)
     }
     
     func fetchSirenListForUser(userId: String, completion: @escaping ([String]?, Error?) -> Void) {
@@ -45,21 +48,81 @@ class SirenViewModel: ObservableObject {
             }
 
             for uid in uids {
-                let messageText = self.constructSiren(riskDescription)
-                self.sendSirenMessage(messageText, receiverId: uid)
-        
+                self.constructSiren(riskDescription) { messageText in
+                    self.sendSirenMessage(messageText, receiverId: uid)
+                }
             }
         }
     }
     
-    func constructSiren(_ riskDescription: String) -> String {
+    
+    func constructSiren(_ riskDescription: String, completion: @escaping (String) -> Void) {
         guard let currentUserName = AuthSceneModel.shared.currentUser?.username else {
-            return "SIREN ALERT \n The risk is at a \(riskDescription). \n Please take necessary precautions."
+            completion("SIREN ALERT \n The risk is at a \(riskDescription). \n Please take necessary precautions.")
+            return
         }
-        
-        let messageText = "🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨\n\nSIREN ALERT FOR \(currentUserName.uppercased()).\nThe risk is described at a \(riskDescription).\n\(currentUserName) needs you to be aware of the current circumstances and to take necessary precautions.\n\n🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨"
-        return messageText
+
+        // Retrieve coordinates
+        self.getSirenCoordinates() { latitude, longitude in
+            var messageText = "🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨\n\nSIREN ALERT FOR \(currentUserName.uppercased()).\nThe risk is described at a \(riskDescription).\n\(currentUserName) needs you to be aware of the current circumstances and to take necessary precautions."
+
+            if let latitude = latitude, let longitude = longitude {
+                self.reverseGeocode(latitude: latitude, longitude: longitude) { address in
+                    if let address = address {
+                        // Append location address to messageText
+                        messageText += "\n\nCurrent Location: \n\(address)\n"
+                    } else {
+                        print("Unable to retrieve location address.")
+                    }
+
+                    // Call the completion handler with the updated messageText
+                    messageText += "\n🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨"
+                    
+                    completion(messageText)
+                }
+            } else {
+                // Call the completion handler without updating messageText
+                messageText += "\n\n🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨"
+                
+                completion(messageText)
+            }
+        }
     }
+
+    
+    func reverseGeocode(latitude: Double, longitude: Double, completion: @escaping (String?) -> Void) {
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        
+        geocoder.reverseGeocodeLocation(location) { placemarks, error in
+            if let error = error {
+                print("Reverse geocoding error: \(error.localizedDescription)")
+                completion(nil)
+            } else if let placemark = placemarks?.first {
+                // Extract address information from the placemark
+                let address = "\(placemark.name ?? "") \(placemark.locality ?? "") \(placemark.administrativeArea ?? "") \(placemark.country ?? "")"
+                completion(address)
+            } else {
+                completion(nil)
+            }
+        }
+    }
+
+    
+    
+    func getSirenCoordinates(completion: @escaping (Double?, Double?) -> Void) {
+            locationViewModel.getCurrentLocation { [weak self] location in
+                guard let self = self else { return }
+
+                if let location = location {
+                    let latitude = location.latitude
+                    let longitude = location.longitude
+                    completion(latitude, longitude)
+                } else {
+                    print("Failed to retrieve location.")
+                    completion(nil, nil)
+                }
+            }
+        }
 
 
     func sendSirenMessage(_ messageText: String, receiverId: String) {

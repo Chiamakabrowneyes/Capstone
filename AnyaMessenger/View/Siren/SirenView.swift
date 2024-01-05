@@ -10,6 +10,7 @@ import SwiftUI
 struct SirenView: View {
     let user: User
     @ObservedObject var viewModel: SirenViewModel
+    //@StateObject private var locationViewModel: LocationViewModel
     @State var speed: Double = 50
     @State var isEditing = false
     
@@ -21,6 +22,7 @@ struct SirenView: View {
     init(user: User) {
         self.user = user
         self.viewModel = SirenViewModel(user: user)
+        //_locationViewModel = StateObject(wrappedValue: LocationViewModel(user: user))
     }
     
     var body: some View {
@@ -76,6 +78,7 @@ struct SirenView: View {
             
             Button("Send Siren Call") {
                 Task {
+                    //i want to call the get currentlocation method here:
                     viewModel.sendMessageToSirenList(riskDescription: riskDescription)
                 }
             }.font(.custom("chalkduster", size: 15))

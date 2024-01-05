@@ -21,6 +21,15 @@ struct LocationView: View {
         Map(coordinateRegion: $viewModel.region)
             .onAppear {
                 viewModel.checkIfLocationServicesIsEnabled()
+                viewModel.getCurrentLocation { coordinates in
+                    if let coordinates = coordinates {
+                        // Use the coordinates (latitude and longitude) as needed
+                        print("Latitude: \(coordinates.latitude), Longitude: \(coordinates.longitude)")
+                    } else {
+                        // Handle the case where location couldn't be determined
+                        print("Unable to determine location.")
+                    }
+                }
             }
             .frame(width: 250, height: 250)
             .padding(10)
