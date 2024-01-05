@@ -48,6 +48,27 @@ struct SettingsScene: View {
                 })
                 
                 Spacer()
+                
+                Button(action: {
+                    AuthSceneModel.shared.deleteAccount { error in
+                        if let error = error {
+                            // Handle error, e.g., display an alert or show an error message
+                            print("Failed to delete account with error: \(error.localizedDescription)")
+                        } else {
+                            // Account deleted successfully
+                            // You can perform any additional actions here, e.g., navigate to a different view or display a success message
+                            print("Account deleted successfully")
+                        }
+                    }
+                }, label: {
+                    Text("Delete Account")
+                        .foregroundColor(.red)
+                        .font(.system(size: 16, weight: .semibold))
+                        .frame(width: UIScreen.main.bounds.width, height: 50)
+                        .background(Color.white)
+                })
+
+                Spacer()
             }
         }
     }

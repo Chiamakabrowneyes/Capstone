@@ -37,7 +37,7 @@ class SirenViewModel: ObservableObject {
         }
     }
     
-    func sendMessageToSirenList(messageText: String) {
+    func sendMessageToSirenList(riskDescription: String) {
         fetchSirenListForUser(userId: user.id ?? "unknown") { [weak self] uids, error in
             guard let self = self, let uids = uids, error == nil else {
                 print("Error or no users in siren list: \(error?.localizedDescription ?? "Unknown error")")
@@ -45,10 +45,22 @@ class SirenViewModel: ObservableObject {
             }
 
             for uid in uids {
+                let messageText = self.constructSiren(riskDescription)
                 self.sendSirenMessage(messageText, receiverId: uid)
+        
             }
         }
     }
+    
+    func constructSiren(_ riskDescription: String) -> String {
+        guard let currentUserName = AuthSceneModel.shared.currentUser?.username else {
+            return "SIREN ALERT \n The risk is at a \(riskDescription). \n Please take necessary precautions."
+        }
+        
+        let messageText = "🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨\n\nSIREN ALERT FOR \(currentUserName.uppercased()).\nThe risk is described at a \(riskDescription).\n\(currentUserName) needs you to be aware of the current circumstances and to take necessary precautions.\n\n🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨"
+        return messageText
+    }
+
 
     func sendSirenMessage(_ messageText: String, receiverId: String) {
         guard let currentUid = AuthSceneModel.shared.currentUser?.id else { return }

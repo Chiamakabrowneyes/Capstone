@@ -23,7 +23,7 @@ struct ProfilePhotoSelectView: View {
                             .frame(width: 180, height: 180)
                             .clipShape(Circle())
                     } else {
-                        Image("plus_photo")
+                        Image(systemName: "photo.badge.plus")
                             .resizable()
                             .renderingMode(.template)
                             .scaledToFill()

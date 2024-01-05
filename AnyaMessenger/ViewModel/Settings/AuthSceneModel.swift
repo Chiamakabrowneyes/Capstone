@@ -16,6 +16,11 @@ import SwiftUI
 import Firebase
 import FirebaseAuth
 
+enum AuthError: Error {
+    case notLoggedIn
+    case customError(message: String)
+}
+
 class AuthSceneModel: NSObject, ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
@@ -146,5 +151,36 @@ class AuthSceneModel: NSObject, ObservableObject {
                 }
             }
         }
+    
+    func deleteAccount(completion: @escaping (Error?) -> Void) {
+        guard let user = userSession else {
+            completion(AuthError.notLoggedIn)
+            return
+        }
+
+        // Delete user data from your Firestore database (assuming user data is stored in Firestore)
+        let userRef = COLLECTION_USERS.document(user.uid)
+        userRef.delete { error in
+            if let error = error {
+                print("Error deleting user data: \(error.localizedDescription)")
+                completion(error)
+                return
+            }
+
+            // Revoke the user's authentication token (sign them out)
+            Auth.auth().currentUser?.delete { error in
+                if let error = error {
+                    print("Error deleting user account: \(error.localizedDescription)")
+                    completion(error)
+                    return
+                }
+
+                // Account successfully deleted
+                self.userSession = nil
+                completion(nil)
+            }
+        }
+    }
+
 }
 

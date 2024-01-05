@@ -76,7 +76,7 @@ struct SirenView: View {
             
             Button("Send Siren Call") {
                 Task {
-                    viewModel.sendMessageToSirenList(messageText: riskDescription)
+                    viewModel.sendMessageToSirenList(riskDescription: riskDescription)
                 }
             }.font(.custom("chalkduster", size: 15))
             .padding(10)
