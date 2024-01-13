@@ -31,10 +31,13 @@ struct LocationView: View {
                     }
                 }
             }
-            .frame(width: 250, height: 250)
+            .colorScheme(.dark)
+            .frame(width: 400, height: 500)
             .padding(10)
             .background(Color("lightPurple"))
             .cornerRadius(20)
+            
+        Spacer()
     }
 }
 

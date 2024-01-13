@@ -10,7 +10,7 @@ import FirebaseFirestoreSwift
 import Firebase
 
 //Struct to initialize the data that would be stored in the text message
-struct TextMessage: Identifiable, Decodable {
+struct TextMessage: Identifiable, Decodable{
     let id: String
     let fromId: String
     let toId: String
@@ -30,4 +30,5 @@ struct ChannelTextMessage: Identifiable, Decodable {
     var user: User?
 }
 
-//TODO: Create a struct for siren calls. which would contain the same data as a text message including some more unique info; eg location data.
+
+

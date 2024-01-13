@@ -14,11 +14,14 @@ class SirenViewModel: ObservableObject {
     @Published var messages = [TextMessage]()
     @Published var messageToSetVisible: String?
     @ObservedObject var locationViewModel: LocationViewModel
-    private let geocoder = CLGeocoder()
+    @State private var geocoder = CLGeocoder()
+    @State private var sirenMessage = ""
+    @State private var allRiskTypes = [String]()
     
     init(user: User) {
         self.user = user
         self.locationViewModel = LocationViewModel(user: user)
+
     }
     
     func fetchSirenListForUser(userId: String, completion: @escaping ([String]?, Error?) -> Void) {
@@ -47,13 +50,20 @@ class SirenViewModel: ObservableObject {
                 return
             }
 
-            for uid in uids {
-                self.constructSiren(riskDescription) { messageText in
+            // Call constructSiren with a completion handler
+            self.constructSiren(riskDescription) { messageText in
+                // Now that you have the message text, send it to each user
+                for uid in uids {
                     self.sendSirenMessage(messageText, receiverId: uid)
                 }
             }
         }
     }
+    
+    func addRiskTypes(riskType: String) {
+        allRiskTypes.append(riskType)
+    }
+
     
     
     func constructSiren(_ riskDescription: String, completion: @escaping (String) -> Void) {

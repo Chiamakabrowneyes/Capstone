@@ -39,7 +39,8 @@ struct SettingsCell: View {
                 .padding(.leading)
         }
         .frame(height: 56)
-        .background(Color.white)
+        .background(Color("lightGray"))
+        .cornerRadius(20)
     }
 }
 

@@ -21,10 +21,10 @@ struct MainTabScene: View {
                         }
                         .tag(1)
                     
-                    ChannelsScene()
+                    ObserveScene(user: user)
                         .tabItem {
-                            Image(systemName: "bubble.left.and.bubble.right")
-                            Text("Channels")
+                            Image(systemName: "eyes.inverse")
+                            Text("Observe")
                         }
                         .tag(2)
                     
@@ -36,6 +36,10 @@ struct MainTabScene: View {
                         .tag(3)
                 }
                 .navigationTitle(tabTitle)
+                .navigationBarTitleDisplayMode(.inline)
+                .foregroundColor(Color("darkPink"))
+                .accentColor(Color("darkPink"))
+                
             }
         } else {
             Text("Cannot be viewed.")
@@ -46,7 +50,7 @@ struct MainTabScene: View {
         switch selectedIndex {
         case 0: return "Siren"
         case 1: return "Chats"
-        case 2: return "Channels"
+        case 2: return "Observe"
         case 3: return "Settings"
         default: return ""
         }

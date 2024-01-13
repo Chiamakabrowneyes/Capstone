@@ -19,7 +19,6 @@ class ConversationsSceneModel: ObservableObject {
         //Calls method to retrieve all messages from firestore database
         fetchRecentMessages()
     }
-    
     func fetchRecentMessages() {
         //Gets the user Uid based on data from the active user session
         guard let uid = AuthSceneModel.shared.userSession?.uid else { return }
@@ -27,7 +26,7 @@ class ConversationsSceneModel: ObservableObject {
         
         //sets up a Firestore query targeting the "recent-messages" sub-collection inside a document whose ID matches the authenticated user's UID in the COLLECTION_MESSAGES collection
         let query = COLLECTION_MESSAGES.document(uid).collection("recent-messages")
-        query.order(by: "timestamp", descending: true)
+        query.order(by: "timestamp", descending: false)
         
         //document retrival call to get the recent messages from firestore in a descending order as document is stored in snapshot
         query.getDocuments { snapshot, _ in
@@ -45,9 +44,11 @@ class ConversationsSceneModel: ObservableObject {
                     self.recentMessagesDictionary[uid] = message
                     //sorts the users according to the ones that have recieved messages more recently
                     self.recentMessages = Array(self.recentMessagesDictionary.values)
-                        .sorted(by: { $0.timestamp.dateValue() > $1.timestamp.dateValue() })
+                        .sorted(by: { $0.timestamp.dateValue() > $1.timestamp.dateValue()})
                 }
             }
         }
     }
+    
+    
 }

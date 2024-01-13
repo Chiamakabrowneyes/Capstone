@@ -22,7 +22,7 @@ struct SettingsScene: View {
     //initializing the user in the settings to populate data in the setting interface
     var body: some View {
         ZStack {
-            Color(.systemGroupedBackground)
+            Color("darkGray")
                 .ignoresSafeArea()
             
             VStack(spacing: 32) {
@@ -31,6 +31,8 @@ struct SettingsScene: View {
                     label: {
                         SettingsHeader(user: viewModel.user)
                             .padding(.vertical)
+                            .background(Color("lightGray"))
+                            .cornerRadius(20)
                     })
                 
                 VStack(spacing: 1) {
@@ -41,10 +43,11 @@ struct SettingsScene: View {
                 
                 Button(action: { AuthSceneModel.shared.signout() }, label: {
                     Text("Log Out")
-                        .foregroundColor(.red)
+                        .foregroundColor(Color("darkPink"))
                         .font(.system(size: 16, weight: .semibold))
-                        .frame(width: UIScreen.main.bounds.width, height: 50)
-                        .background(Color.white)
+                        .frame(width: 100, height: 50)
+                        .background(Color("lightGray"))
+                        .cornerRadius(20)
                 })
                 
                 Spacer()
@@ -62,14 +65,31 @@ struct SettingsScene: View {
                     }
                 }, label: {
                     Text("Delete Account")
-                        .foregroundColor(.red)
+                        .foregroundColor(Color("darkPink"))
                         .font(.system(size: 16, weight: .semibold))
-                        .frame(width: UIScreen.main.bounds.width, height: 50)
-                        .background(Color.white)
+                        .frame(width: 150, height: 50)
+                        .background(Color("lightGray"))
+                        .cornerRadius(20)
                 })
 
                 Spacer()
             }
         }
+    }
+}
+
+struct RoundedBottomCornersShape: Shape {
+    var radius: CGFloat
+    
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.minX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY - radius))
+        path.addArc(center: CGPoint(x: rect.maxX - radius, y: rect.maxY - radius), radius: radius, startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 90), clockwise: false)
+        path.addLine(to: CGPoint(x: rect.minX + radius, y: rect.maxY))
+        path.addArc(center: CGPoint(x: rect.minX + radius, y: rect.maxY - radius), radius: radius, startAngle: Angle(degrees: 90), endAngle: Angle(degrees: 180), clockwise: false)
+        path.closeSubpath()
+        return path
     }
 }

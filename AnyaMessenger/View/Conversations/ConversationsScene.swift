@@ -21,6 +21,8 @@ struct ConversationsScene: View {
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             //Clicking on a user creates a segue for one-on-one interaction
+            Color("darkGray") // Replace with the name of your desired color from your asset catalog
+                            .edgesIgnoringSafeArea(.all)
             if let user = user {
                 NavigationLink(destination: LazyView(ChatScene(user: user)),
                                isActive: $showChat,

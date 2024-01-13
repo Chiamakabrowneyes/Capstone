@@ -13,11 +13,27 @@ struct SirenView: View {
     //@StateObject private var locationViewModel: LocationViewModel
     @State var speed: Double = 50
     @State var isEditing = false
-    
-    
     @State var messageText: String = ""
     @State private var selectedImage: UIImage?
+    @State private var isButtonClicked: [Bool] = Array(repeating: false, count: 6)
+    @State var bottomSheetPosition: BottomSheetPosition = .middle
+    @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
     
+
+    var bottomSheetTranslationProrated: CGFloat {
+        (bottomSheetTranslation - BottomSheetPosition.middle.rawValue) / (BottomSheetPosition.top.rawValue - BottomSheetPosition.middle.rawValue)
+    }
+    
+    let riskTypes = [
+                ("Robbery", "robbery"),
+                ("Burglary", "Burglary"),
+                ("S. Assault", "S. Assault"),
+                ("Kidnap", "Kidnap"),
+                ("Lost", "Lost"),
+                ("Sickness", "Sickness")
+            ]
+            
+
     //initializes the required parameters for Chat view
     init(user: User) {
         self.user = user
@@ -26,6 +42,7 @@ struct SirenView: View {
     }
     
     var body: some View {
+        
         var riskDescription: String {
                 switch Int(speed) {
                 case ..<20:
@@ -44,11 +61,42 @@ struct SirenView: View {
             }
         
         VStack {
-            LocationView(user: user)
-                        .frame(width: 300, height: 300)
+            Spacer()
+            Text("Send Siren Call")
+                .foregroundColor(Color("darkPink"))
+                .font(.custom("chalkduster", size: 20))
+                .padding(20)
+            
+            
+            GeometryReader { geometry in
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyVGrid(
+                        columns: [
+                            GridItem(.flexible(), spacing: 12),
+                            GridItem(.flexible(), spacing: 12),
+                        ],
+                        spacing: 12
+                    ) {
+                        ForEach(0..<riskTypes.count, id: \.self) { index in
+                            SirenRiskButton(
+                                title: riskTypes[index].0,
+                                isClicked: $isButtonClicked[index]
+                            ) {
+                                viewModel.addRiskTypes(riskType: riskTypes[index].1)
+                            }
+                        }
+                    }
+                    .padding(12) // Add horizontal padding
+                    .frame(width: geometry.size.width, alignment: .leading)
+                }
+            }
+            .frame(height: 150)
+            .padding(.bottom, 10)
+            
             
             Text("\(Int(speed))")
                 .foregroundColor(Color("darkPurple"))
+                .font(.custom("chalkduster", size: 15))
             
             Slider(
                 value: $speed,
@@ -67,28 +115,40 @@ struct SirenView: View {
             .frame(width: 300)
             .foregroundColor(Color("darkPurple"))
             .accentColor(Color("darkPink"))
+            .font(.custom("chalkduster", size: 15))
             
             
             Text(riskDescription)
                 .foregroundColor(Color("darkPurple"))
+                .font(.custom("chalkduster", size: 15))
                 
                 
             Spacer()
                 .frame(height: 50)
             
-            Button("Send Siren Call") {
-                Task {
-                    //i want to call the get currentlocation method here:
-                    viewModel.sendMessageToSirenList(riskDescription: riskDescription)
-                }
-            }.font(.custom("chalkduster", size: 15))
-            .padding(10)
-            .border(Color.gray, width: 1)
-            .foregroundColor(Color("darkPurple"))
-            .bold()
-            .tint(.black)
+            Button(action: {
+                            Task {
+                                viewModel.sendMessageToSirenList(riskDescription: riskDescription)
+                            }
+                        }) {
+                            HStack {
+                                Image(systemName: "bell.and.waves.left.and.right.fill")
+                            }
+                            .font(.custom("chalkduster", size: 25))
+                            .padding(5)
+                            .cornerRadius(20)
+                            .foregroundColor(Color("darkPink"))
+                        }
+           
+            Spacer(minLength: 100)
+            
         }
+        .background(Color("darkGray")) // Change "YourBackgroundColor" to the color you want
+        .edgesIgnoringSafeArea(.all)
+        .tabViewStyle(DefaultTabViewStyle())
     }
+    
+    
 }
 
 

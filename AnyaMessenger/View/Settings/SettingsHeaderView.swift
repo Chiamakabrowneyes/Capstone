@@ -26,16 +26,17 @@ struct SettingsHeader: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(user.fullname)
                     .font(.system(size: 18))
-                    .foregroundColor(.black)
+                    .foregroundColor(.white)
                 
                 Text(user.status.description)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.white)
                     .font(.system(size: 14))
             }
+            
             
             Spacer()
         }
         .frame(height: 80)
-        .background(Color.white)
+        .background(Color("lightGray"))
     }
 }

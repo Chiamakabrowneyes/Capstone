@@ -32,8 +32,13 @@ struct ConversationCell: View {
                         .font(.system(size: 15))
                         .lineLimit(2)
                 }
-                .foregroundColor(.black)
-                .padding(.trailing)
+                .foregroundColor(.white)
+                .padding(12)
+                .cornerRadius(20)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.white, lineWidth: 1)
+                )
                 
                 Spacer()
             }

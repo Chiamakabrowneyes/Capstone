@@ -21,9 +21,11 @@ struct ChatScene: View {
                             MessageScene(viewModel: MessageSceneModel(message: message))
                                 .id(message.id)
                         }
-                    }.padding(.top)
+                    }
+                    .padding(.top)
                 }
                 .onReceive(viewModel.$messageToSetVisible, perform: { id in
+                    print("Received messageToSetVisible update with id: \(id ?? "nil")")
                     value.scrollTo(id)
                 })
             }

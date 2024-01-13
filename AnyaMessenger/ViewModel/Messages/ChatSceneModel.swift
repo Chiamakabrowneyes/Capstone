@@ -42,6 +42,7 @@ class ChatSceneModel: ObservableObject {
             for (index, message) in self.messages.enumerated() where message.fromId != currentUid {
                 self.messages[index].user = self.user
                 
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.messageToSetVisible = self.messages.last?.id
                 }
