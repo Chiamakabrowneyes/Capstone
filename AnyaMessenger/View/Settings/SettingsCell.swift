@@ -17,10 +17,9 @@ struct SettingsCell: View {
                 Image(systemName: viewModel.imageName)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 22, height: 22)
+                    .frame(width: 24, height: 24)
                     .padding(6)
-                    .background(viewModel.backgroundColor)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("darkPink"))
                     .cornerRadius(6)
 
                 Text(viewModel.title)

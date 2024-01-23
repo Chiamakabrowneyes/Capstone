@@ -32,9 +32,9 @@ struct MessageScene: View {
                 } else {
                     Text(viewModel.message.text)
                         .padding(12)
-                        .background(Color.blue)
+                        .background(Color("darkPurple"))
                         .clipShape(ChatBubble(isFromCurrentUser: true))
-                        .foregroundColor(.white)
+                        .foregroundColor(Color("darkGray"))
                         .padding(.horizontal)
                         .padding(.leading, 100)
                         .font(.system(size: 15))
@@ -58,7 +58,7 @@ struct MessageScene: View {
                     } else {
                         Text(viewModel.message.text)
                             .padding(12)
-                            .background(Color(.systemGray5))
+                            .background(Color("darkPink"))
                             .font(.system(size: 15))
                             .clipShape(ChatBubble(isFromCurrentUser: false))
                             .foregroundColor(.black)
@@ -67,6 +67,7 @@ struct MessageScene: View {
                 }
                 .padding(.horizontal)
                 .padding(.trailing, 80)
+                
                 
                 Spacer()
             }

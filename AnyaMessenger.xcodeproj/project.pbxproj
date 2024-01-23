@@ -46,7 +46,7 @@
 		7C66FD272AC9D5D70060AE8E /* TextMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66FD262AC9D5D70060AE8E /* TextMessage.swift */; };
 		7C66FD292AC9D6500060AE8E /* EditProfileSceneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66FD282AC9D6500060AE8E /* EditProfileSceneModel.swift */; };
 		7C6DF8652B52E81F00982E8C /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6DF8642B52E81F00982E8C /* Alert.swift */; };
-		7C6DF8672B52EAB300982E8C /* ObserveAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6DF8662B52EAB300982E8C /* ObserveAlertModel.swift */; };
+		7C6DF8672B52EAB300982E8C /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6DF8662B52EAB300982E8C /* AlertViewModel.swift */; };
 		7C775A3E2AD8FE630050D996 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C775A3D2AD8FE630050D996 /* ImageUploader.swift */; };
 		7C775A402ADB36E10050D996 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C775A3F2ADB36E10050D996 /* User.swift */; };
 		7C775A4D2ADB41670050D996 /* SettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C775A4C2ADB41670050D996 /* SettingsHeaderView.swift */; };
@@ -139,7 +139,7 @@
 		7C66FD262AC9D5D70060AE8E /* TextMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextMessage.swift; sourceTree = "<group>"; };
 		7C66FD282AC9D6500060AE8E /* EditProfileSceneModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileSceneModel.swift; sourceTree = "<group>"; };
 		7C6DF8642B52E81F00982E8C /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
-		7C6DF8662B52EAB300982E8C /* ObserveAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveAlertModel.swift; sourceTree = "<group>"; };
+		7C6DF8662B52EAB300982E8C /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
 		7C775A3D2AD8FE630050D996 /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		7C775A3F2ADB36E10050D996 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7C775A4C2ADB41670050D996 /* SettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderView.swift; sourceTree = "<group>"; };
@@ -209,11 +209,11 @@
 		7C059BFD2B4F6C98009738DC /* Observe */ = {
 			isa = PBXGroup;
 			children = (
+				7C6DF8662B52EAB300982E8C /* AlertViewModel.swift */,
 				7C059BFE2B4F6CA8009738DC /* Blur.swift */,
 				7C059C002B4F6CC1009738DC /* SegmentedControl.swift */,
 				7C059C022B4F6E6C009738DC /* ForecastCard.swift */,
 				7C059C042B4F6E83009738DC /* WeatherWidget.swift */,
-				7C6DF8662B52EAB300982E8C /* ObserveAlertModel.swift */,
 			);
 			path = Observe;
 			sourceTree = "<group>";
@@ -650,7 +650,7 @@
 				7C66FD272AC9D5D70060AE8E /* TextMessage.swift in Sources */,
 				7C66FCF32AC8E2280060AE8E /* MainTabScene.swift in Sources */,
 				7C8A25AD2AF70A4C0003EA87 /* SirenView.swift in Sources */,
-				7C6DF8672B52EAB300982E8C /* ObserveAlertModel.swift in Sources */,
+				7C6DF8672B52EAB300982E8C /* AlertViewModel.swift in Sources */,
 				7C4014BA2ACF3AAA00A050D5 /* AuthSceneModel.swift in Sources */,
 				7C66FCFF2AC8E59B0060AE8E /* ConversationsScene.swift in Sources */,
 			);

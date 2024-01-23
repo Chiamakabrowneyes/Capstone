@@ -37,7 +37,7 @@ struct MainTabScene: View {
                 }
                 .navigationTitle(tabTitle)
                 .navigationBarTitleDisplayMode(.inline)
-                .foregroundColor(Color("darkPink"))
+                .foregroundColor(Color("darkGray"))
                 .accentColor(Color("darkPink"))
                 
             }

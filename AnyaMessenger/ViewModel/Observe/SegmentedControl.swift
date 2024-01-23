@@ -19,7 +19,7 @@ struct SegmentedControl: View {
                         selection = 0
                     }
                 } label: {
-                    Text("Siren Frequency & Data ")
+                    Text("Siren Frequency")
                         .foregroundColor(Color("lightPink"))
                 }
                 .frame(minWidth: 0, maxWidth: .infinity)
@@ -29,7 +29,7 @@ struct SegmentedControl: View {
                         selection = 1
                     }
                 } label: {
-                    Text(" within a 20 mile radius")
+                    Text("Local Emergency Units")
                         .foregroundColor(Color("lightPink"))
                 }
                 .frame(minWidth: 0, maxWidth: .infinity)

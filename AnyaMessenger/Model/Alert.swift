@@ -18,5 +18,4 @@ struct SirenData: Identifiable, Decodable {
     var latitude: Double?
     var longitude:Double?
     let timestamp: Timestamp
-    var user: User?
 }

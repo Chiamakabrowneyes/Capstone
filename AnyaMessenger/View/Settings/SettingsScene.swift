@@ -5,11 +5,10 @@
 //  Created by chiamakabrowneyes on 9/30/23.
 //
 
-
-
 /**
  This Settings View Conforms to the EditProfileViewModel as its ObservableObject so any changes to that class properties will notify and update this view
  */
+
 import SwiftUI
 
 struct SettingsScene: View {
@@ -26,6 +25,9 @@ struct SettingsScene: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 32) {
+                Spacer()
+                    .frame(height: 90)
+                
                 NavigationLink(
                     destination: EditProfileScene(viewModel: viewModel),
                     label: {

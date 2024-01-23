@@ -24,60 +24,18 @@ enum Weather: String {
 
 struct Forecast: Identifiable {
     var id = UUID()
-    var date: Date
-    var weather: Weather
-    var probability: Int
-    var temperature: Int
-    var high: Int
-    var low: Int
+    var reportText: String
     var location: String
-    
-    var icon: String {
-        switch weather {
-        case .clear:
-            return "Moon"
-        case .cloudy:
-            return "Cloud"
-        case .rainy:
-            return "Moon cloud mid rain"
-        case .stormy:
-            return "Sun cloud angled rain"
-        case .sunny:
-            return "Sun"
-        case .tornado:
-            return "Tornado"
-        case .windy:
-            return "Moon cloud fast wind"
-        }
-    }
 }
 
 extension Forecast {
-    static let hour: TimeInterval = 60 * 60
-    static let day: TimeInterval = 60 * 60 * 24
-    
-    static let hourly: [Forecast] = [
-        Forecast(date: .init(timeIntervalSinceNow: hour * -1), weather: .rainy, probability: 30, temperature: 19, high: 24, low: 18, location: "Montreal, Canada"),
-        Forecast(date: .now, weather: .rainy, probability: 0, temperature: 19, high: 24, low: 18, location: "Montreal, Canada"),
-        Forecast(date: .init(timeIntervalSinceNow: hour * 1), weather: .windy, probability: 0, temperature: 19, high: 24, low: 18, location: "Montreal, Canada"),
-        Forecast(date: .init(timeIntervalSinceNow: hour * 2), weather: .rainy, probability: 0, temperature: 18, high: 24, low: 18, location: "Montreal, Canada"),
-        Forecast(date: .init(timeIntervalSinceNow: hour * 3), weather: .rainy, probability: 0, temperature: 19, high: 24, low: 18, location: "Montreal, Canada"),
-        Forecast(date: .init(timeIntervalSinceNow: hour * 4), weather: .rainy, probability: 0, temperature: 19, high: 24, low: 18, location: "Montreal, Canada")
-    ]
-    
-    static let daily: [Forecast] = [
-        Forecast(date: .init(timeIntervalSinceNow: 0), weather: .rainy, probability: 30, temperature: 19, high: 24, low: 18, location: "Montreal, Canada"),
-        Forecast(date: .init(timeIntervalSinceNow: day * 1), weather: .rainy, probability: 0, temperature: 19, high: 24, low: 18, location: "Montreal, Canada"),
-        Forecast(date: .init(timeIntervalSinceNow: day * 2), weather: .stormy, probability: 100, temperature: 19, high: 24, low: 18, location: "Montreal, Canada"),
-        Forecast(date: .init(timeIntervalSinceNow: day * 3), weather: .stormy, probability: 50, temperature: 18, high: 24, low: 18, location: "Montreal, Canada"),
-        Forecast(date: .init(timeIntervalSinceNow: day * 4), weather: .rainy, probability: 0, temperature: 19, high: 24, low: 18, location: "Montreal, Canada"),
-        Forecast(date: .init(timeIntervalSinceNow: day * 5), weather: .rainy, probability: 0, temperature: 19, high: 24, low: 18, location: "Montreal, Canada")
-    ]
     
     static let cities: [Forecast] = [
-        Forecast(date: .now, weather: .rainy, probability: 0, temperature: 19, high: 24, low: 18, location: "Montreal, Canada"),
-        Forecast(date: .now, weather: .windy, probability: 0, temperature: 20, high: 21, low: 19, location: "Toronto, Canada"),
-        Forecast(date: .now, weather: .stormy, probability: 0, temperature: 13, high: 16, low: 8, location: "Tokyo, Japan"),
-        Forecast(date: .now, weather: .tornado, probability: 0, temperature: 23, high: 26, low: 16, location: "Tennessee, United States")
+        Forecast(reportText: "I was just walking down the street when I heard this huge bang. I turned around and saw a red car had smashed into a streetlight.", location: "Montreal, Canada"),
+        Forecast(reportText: "My friend just sirened me that theres a gang robbery around the filling station at Abeokuta junction. Be safe y'all", location: "Toronto, Canada"),
+        Forecast(reportText: "Heads up, I just got a text about a major accident on Main Street near the library. Better take a different route if you're heading that way.", location: "Tokyo, Japan"),
+        Forecast(reportText: "There's a wildfire spreading near the Pine Ridge area. If you're nearby, stay alert and be ready to evacuate if needed. Stay safe!", location: "Tennessee, United States"),
+        Forecast(reportText: "There's been a chemical spill reported at the factory on 5th Avenue. Authorities are advising everyone in the area to stay indoors", location: "Tennessee, United States"),
+        Forecast(reportText: "Guys, be extra careful if you're going downtown. There's a large protest turning violent near City Hall. It's best to avoid the area entirely tonight.", location: "Tennessee, United States")
     ]
 }

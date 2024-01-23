@@ -113,12 +113,6 @@ struct ObserveScene: View {
                             }
                         }
                     }
-                    
-                    // MARK: Tab Bar
-                    TabBar(action: {
-                        bottomSheetPosition = .top
-                    })
-                    .offset(y: bottomSheetTranslationProrated * 115)
                 }
             }
             .navigationBarHidden(true)

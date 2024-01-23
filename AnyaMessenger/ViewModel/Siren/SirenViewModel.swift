@@ -14,6 +14,7 @@ class SirenViewModel: ObservableObject {
     @Published var messages = [TextMessage]()
     @Published var messageToSetVisible: String?
     @ObservedObject var locationViewModel: LocationViewModel
+    @ObservedObject var alertViewModel: AlertViewModel
     @State private var geocoder = CLGeocoder()
     @State private var sirenMessage = ""
     @State private var allRiskTypes = [String]()
@@ -21,6 +22,7 @@ class SirenViewModel: ObservableObject {
     init(user: User) {
         self.user = user
         self.locationViewModel = LocationViewModel(user: user)
+        self.alertViewModel = AlertViewModel()
 
     }
     
@@ -53,6 +55,7 @@ class SirenViewModel: ObservableObject {
             // Call constructSiren with a completion handler
             self.constructSiren(riskDescription) { messageText in
                 // Now that you have the message text, send it to each user
+                
                 for uid in uids {
                     self.sendSirenMessage(messageText, receiverId: uid)
                 }
@@ -74,6 +77,7 @@ class SirenViewModel: ObservableObject {
 
         // Retrieve coordinates
         self.getSirenCoordinates() { latitude, longitude in
+            self.alertViewModel.updateSirenData(riskTypes: ["fire", "theft"], latitudes: latitude, longitudes: longitude)
             var messageText = "🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨\n\nSIREN ALERT FOR \(currentUserName.uppercased()).\nThe risk is described at a \(riskDescription).\n\(currentUserName) needs you to be aware of the current circumstances and to take necessary precautions."
 
             if let latitude = latitude, let longitude = longitude {

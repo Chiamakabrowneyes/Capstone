@@ -10,7 +10,7 @@ import SwiftUI
 struct SirenView: View {
     let user: User
     @ObservedObject var viewModel: SirenViewModel
-    //@StateObject private var locationViewModel: LocationViewModel
+    @ObservedObject var alertViewModel: AlertViewModel
     @State var speed: Double = 50
     @State var isEditing = false
     @State var messageText: String = ""
@@ -38,7 +38,7 @@ struct SirenView: View {
     init(user: User) {
         self.user = user
         self.viewModel = SirenViewModel(user: user)
-        //_locationViewModel = StateObject(wrappedValue: LocationViewModel(user: user))
+        self.alertViewModel = AlertViewModel()
     }
     
     var body: some View {
@@ -66,7 +66,6 @@ struct SirenView: View {
                 .foregroundColor(Color("darkPink"))
                 .font(.custom("chalkduster", size: 20))
                 .padding(20)
-            
             
             GeometryReader { geometry in
                 ScrollView(.horizontal, showsIndicators: false) {

@@ -25,15 +25,19 @@ struct ForecastView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         if selection == 0 {
-                            ForEach(Forecast.hourly) { forecast in
-                                ForecastCard(forecast: forecast, forecastPeriod: .hourly)
-                            }
-                            .transition(.offset(x: -430))
+                            ForecastCard(mainText: "Siren calls per day within a 20 mile radius", detailText: "839", cardCondition: false)
+                            ForecastCard(mainText: "The siren frequency in your area is above average. Be alert and feel free to access local emergency.", detailText: "", cardCondition: false)
+                        
                         } else {
-                            ForEach(Forecast.daily) { forecast in
-                                ForecastCard(forecast: forecast, forecastPeriod: .daily)
-                            }
-                            .transition(.offset(x: 430))
+                            ForecastCard(mainText: "+234 782-8393-7878"
+                                         + "\nWuse Police Department, 1410 Ethan Way, Abuja 900001", detailText: "Police Contact Info", cardCondition: true)
+                            ForecastCard(mainText: "+234 097-6377-1093" +
+                                         "\nDaughters of Charity Clinic, 14 Umorem St, Abuja 900001", detailText: "Ambulance Contact Info", cardCondition: true)
+                            ForecastCard(mainText: "+234 887-1827-8982" +
+                                         "\n Durumi Highway, 267 idomota St, Abuja 900001", detailText: "Fire Department Contact Info", cardCondition: true)
+                            ForecastCard(mainText: "Contact Information: +234 112-2891-7393" +
+                                         "\nMinistry of Justice, Abuja 900001", detailText: "Law Enforcement Contact Info",cardCondition: true)
+                            
                         }
                     }
                     .padding(.vertical, 20)

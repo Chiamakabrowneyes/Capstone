@@ -31,17 +31,17 @@ class ChatSceneModel: ObservableObject {
         let query = COLLECTION_MESSAGES
             .document(currentUid)
             .collection(uid)
-            .order(by: "timestamp", descending: false)
+            .order(by: "timestamp", descending: true)
         
         query.addSnapshotListener { snapshot, error in
             guard let changes = snapshot?.documentChanges.filter({ $0.type == DocumentChangeType.added }) else { return }
-            let messages = changes.compactMap({ try? $0.document.data(as: TextMessage.self) })
+            let newMessages = changes.compactMap({ try? $0.document.data(as: TextMessage.self) })
             
-            self.messages.append(contentsOf: messages)
-                        
+            // Prepend the new messages to the beginning of the messages array
+            self.messages.insert(contentsOf: newMessages, at: 0)
+            
             for (index, message) in self.messages.enumerated() where message.fromId != currentUid {
                 self.messages[index].user = self.user
-                
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.messageToSetVisible = self.messages.last?.id
@@ -49,6 +49,7 @@ class ChatSceneModel: ObservableObject {
             }
         }
     }
+
     
     func send(type: MessageType) {
         switch type {

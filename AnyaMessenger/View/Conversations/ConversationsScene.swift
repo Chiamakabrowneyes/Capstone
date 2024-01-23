@@ -32,6 +32,8 @@ struct ConversationsScene: View {
             //The ScrollView loops over viewModel.recentMessages to display each recent message.
             
             ScrollView {
+                Spacer()
+                    .frame(height: 90)
                 VStack {
                     //Each message is rendered using a ConversationCell which takes in a MessageViewModel initialized with the current message.
                     ForEach(viewModel.recentMessages) { message in

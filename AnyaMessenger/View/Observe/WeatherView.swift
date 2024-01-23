@@ -19,29 +19,30 @@ struct WeatherView: View {
     }
     
     var body: some View {
-        ZStack {
-            // MARK: Background
-            Color.background
-                .ignoresSafeArea()
-            
-            // MARK: Weather Widgets
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 20) {
-                    ForEach(searchResults) { forecast in
-                        WeatherWidget(forecast: forecast)
+        NavigationView {
+            ZStack {
+                // MARK: Background
+                Color("darkGray")
+                    .ignoresSafeArea()
+                
+                // MARK: Weather Widgets
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 20) {
+                        ForEach(searchResults) { forecast in
+                            WeatherWidget(forecast: forecast)
+                        }
                     }
                 }
+                .safeAreaInset(edge: .top) {
+                    EmptyView()
+                        .frame(height: 70)
+                }
             }
-            .safeAreaInset(edge: .top) {
-                EmptyView()
-                    .frame(height: 110)
+            .overlay {
+                // MARK: Navigation Bar
+                NavigationBar(searchText: $searchText)
             }
+            .navigationBarHidden(true)
         }
-        .overlay {
-            // MARK: Navigation Bar
-            NavigationBar(searchText: $searchText)
-        }
-        .navigationBarHidden(true)
-//        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a city or airport")
     }
 }

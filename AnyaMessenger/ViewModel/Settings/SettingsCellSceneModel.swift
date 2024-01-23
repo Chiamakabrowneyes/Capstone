@@ -8,31 +8,31 @@
 import SwiftUI
 
 enum SettingsCellSceneModel: Int, CaseIterable {
-    case account
-    case notifications
-    case starredMessages
+    case optimize
+    case addContact
+    case removeContacts
     
     var title: String {
         switch self {
-        case .account: return "Account"
-        case .notifications: return "Notifications"
-        case .starredMessages: return "Starred Messages"
+        case .optimize: return "Optimize Your Siren Calls "
+        case .addContact: return "Add New Siren Contacts"
+        case .removeContacts: return "Remove Select Siren Contacts"
         }
     }
     
     var imageName: String {
         switch self {
-        case .account: return "key.fill"
-        case .notifications: return "bell.badge.fill"
-        case .starredMessages: return "star.fill"
+        case .optimize: return "brain.head.profile"
+        case .addContact: return "at.badge.plus"
+        case .removeContacts: return "person.badge.minus.fill"
         }
     }
     
     var backgroundColor: Color {
         switch self {
-        case .account: return .blue
-        case .notifications: return .red
-        case .starredMessages: return .yellow
+        case .optimize: return Color("darkPink")
+        case .addContact: return Color("darkPink")
+        case .removeContacts: return Color("darkPink")
         }
     }
 }
