@@ -26,7 +26,7 @@ struct SettingsScene: View {
             
             VStack(spacing: 32) {
                 Spacer()
-                    .frame(height: 90)
+                    .frame(height: 10)
                 
                 NavigationLink(
                     destination: EditProfileScene(viewModel: viewModel),

@@ -42,7 +42,7 @@ struct MainTabScene: View {
                 
             }
         } else {
-            Text("Cannot be viewed.")
+            LoginView()
         }
     }
     

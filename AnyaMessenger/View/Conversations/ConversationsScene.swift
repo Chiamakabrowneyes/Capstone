@@ -33,7 +33,7 @@ struct ConversationsScene: View {
             
             ScrollView {
                 Spacer()
-                    .frame(height: 90)
+                    .frame(height: 10)
                 VStack {
                     //Each message is rendered using a ConversationCell which takes in a MessageViewModel initialized with the current message.
                     ForEach(viewModel.recentMessages) { message in

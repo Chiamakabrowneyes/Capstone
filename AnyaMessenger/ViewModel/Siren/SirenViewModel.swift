@@ -13,11 +13,12 @@ class SirenViewModel: ObservableObject {
     let user: User
     @Published var messages = [TextMessage]()
     @Published var messageToSetVisible: String?
+    @Published private var allRiskTypes = [String]()
     @ObservedObject var locationViewModel: LocationViewModel
     @ObservedObject var alertViewModel: AlertViewModel
     @State private var geocoder = CLGeocoder()
     @State private var sirenMessage = ""
-    @State private var allRiskTypes = [String]()
+    
     
     init(user: User) {
         self.user = user
@@ -25,6 +26,7 @@ class SirenViewModel: ObservableObject {
         self.alertViewModel = AlertViewModel()
 
     }
+    
     
     func fetchSirenListForUser(userId: String, completion: @escaping ([String]?, Error?) -> Void) {
         COLLECTION_SIRENS.whereField("creator", isEqualTo: userId).getDocuments { (querySnapshot, error) in
@@ -64,7 +66,17 @@ class SirenViewModel: ObservableObject {
     }
     
     func addRiskTypes(riskType: String) {
-        allRiskTypes.append(riskType)
+        print("Attempting to add risk type ..") // Confirm function call
+        
+        if let index = self.allRiskTypes.firstIndex(of: riskType) {
+            self.allRiskTypes.remove(at: index)  // Removes "banana"
+        } else {
+            self.allRiskTypes.append(riskType)
+        }
+
+
+        print("Added Risk Type: \(riskType)")
+        print("Current Risk Types: \(allRiskTypes)")
     }
 
     
@@ -74,17 +86,28 @@ class SirenViewModel: ObservableObject {
             completion("SIREN ALERT \n The risk is at a \(riskDescription). \n Please take necessary precautions.")
             return
         }
+        
+        var messageText = "🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨\n\nSIREN ALERT FOR \(currentUserName.uppercased()).\nThe risk is described at a \(riskDescription).\n\(currentUserName) needs you to be aware of the current circumstances and to take necessary precautions."
+        
+        //Add Risk Types
+        if (self.allRiskTypes.count > 0) {
+            messageText += "\nThe indicated risk type(s) include:\n"
+            self.allRiskTypes.forEach { risk in
+                messageText.append("  " + risk + "\n")
+            }
+        } else {
+            messageText += "\nThere is currently no indicated risk type.\n"
+        }
 
         // Retrieve coordinates
         self.getSirenCoordinates() { latitude, longitude in
             self.alertViewModel.updateSirenData(riskTypes: ["fire", "theft"], latitudes: latitude, longitudes: longitude)
-            var messageText = "🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨\n\nSIREN ALERT FOR \(currentUserName.uppercased()).\nThe risk is described at a \(riskDescription).\n\(currentUserName) needs you to be aware of the current circumstances and to take necessary precautions."
-
+            
             if let latitude = latitude, let longitude = longitude {
                 self.reverseGeocode(latitude: latitude, longitude: longitude) { address in
                     if let address = address {
                         // Append location address to messageText
-                        messageText += "\n\nCurrent Location: \n\(address)\n"
+                        messageText += "\nCurrent Location: \n\(address)\n"
                     } else {
                         print("Unable to retrieve location address.")
                     }

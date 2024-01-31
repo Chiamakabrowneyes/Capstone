@@ -20,9 +20,6 @@ struct SirenView: View {
     @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
     
 
-    var bottomSheetTranslationProrated: CGFloat {
-        (bottomSheetTranslation - BottomSheetPosition.middle.rawValue) / (BottomSheetPosition.top.rawValue - BottomSheetPosition.middle.rawValue)
-    }
     
     let riskTypes = [
                 ("Robbery", "robbery"),
@@ -127,7 +124,9 @@ struct SirenView: View {
             
             Button(action: {
                             Task {
-                                viewModel.sendMessageToSirenList(riskDescription: riskDescription)
+                                viewModel.sendMessageToSirenList(riskDescription: riskDescription);
+                                resetButtons();
+                                print(isButtonClicked)
                             }
                         }) {
                             HStack {
@@ -146,8 +145,11 @@ struct SirenView: View {
         .edgesIgnoringSafeArea(.all)
         .tabViewStyle(DefaultTabViewStyle())
     }
-    
-    
+    func resetButtons() {
+        isButtonClicked = Array(repeating: false, count: isButtonClicked.count)
+    }
 }
+
+
 
 
