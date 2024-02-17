@@ -12,8 +12,13 @@ import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     let gcmMessageIDKey = NSUUID().uuidString
+    lazy var sirenViewModel: SirenView = {
+            let user = AuthSceneModel.shared.currentUser
+        return SirenView(user: user!)
+        }()
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
@@ -37,6 +42,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.registerForRemoteNotifications()
     }
+    
+    func application(_ application: UIApplication,
+                     continue userActivity: NSUserActivity,
+                     restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        
+        if userActivity.activityType == "com.chiamakabrowneyes.Anya.sendMessageToSirenList" {
+             // Or get a shared instance
+            let riskDescription = userActivity.userInfo?["riskDescription"] as? String ?? ""
+            sirenViewModel.automateSiren()
+            return true
+        }
+        
+        return false
+    }
+
 
 
     // MARK: UISceneSession Lifecycle
@@ -66,6 +86,8 @@ extension AppDelegate: MessagingDelegate {
         print("DEBUG: Registered with FCM Token: ", fcmToken ?? "No FCM Token found")
     }
 }
+
+
 
 // MARK: - UNUserNotificationCenterDelegate
 

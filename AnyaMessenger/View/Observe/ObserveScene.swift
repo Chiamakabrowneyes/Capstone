@@ -16,13 +16,16 @@ enum BottomSheetPosition: CGFloat, CaseIterable {
 
 struct ObserveScene: View {
     let user: User
+    @ObservedObject var reportViewModel: ReportViewModel
+    @ObservedObject var observeViewModel = ObserveViewModel()
     @State var bottomSheetPosition: BottomSheetPosition = .middle
     @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
     @State var hasDragged: Bool = false
-    @State private var textFieldText: String = ""
     
     init(user: User) {
         self.user = user
+        self.reportViewModel = ReportViewModel(user: user)
+        self.observeViewModel = ObserveViewModel()
         }
     
     var bottomSheetTranslationProrated: CGFloat {
@@ -51,17 +54,32 @@ struct ObserveScene: View {
                         
                         // MARK: Make a report
                         VStack{
-                            TextEditor(text: $textFieldText)
+                            TextEditor(text: $observeViewModel.reportText)
                                         .textFieldStyle(RoundedBorderTextFieldStyle())
                                         .cornerRadius(20)
                                         .padding(8)
-                                        .frame(width: 350, height: 200)
+                                        .frame(width: 350, height: 180)
                                         .background(Color("darkPink"))
                                         .cornerRadius(20)
+                            
+                            HStack{
+                                Spacer()
+                                
+                                Text("\(observeViewModel.reportText.count)/150")
+                                    .font(.caption)
+                                    .foregroundColor(Color("lightPink"))
+                                    .padding(.trailing)
+                                
+                                Spacer()
+                                    .frame(width: 28)
+                                
+                            }
                             
                             Button(action: {
                                             Task {
                                                 // Add a send siren report method
+                                                reportViewModel.addReport(reportText: observeViewModel.reportText)
+                                                self.observeViewModel.reportText = ""
                                                 print("sent")
                                             }
                                         }) {
@@ -78,7 +96,7 @@ struct ObserveScene: View {
                         HStack {
                             // MARK: Navigation Button
                             NavigationLink {
-                                WeatherView()
+                                ReportView(user: user)
                             } label: {
                                 Text("See other reports")
                                     .font(.custom("chalkduster", size: 15))

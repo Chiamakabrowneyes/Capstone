@@ -16,13 +16,12 @@ struct SirenView: View {
     @State var messageText: String = ""
     @State private var selectedImage: UIImage?
     @State private var isButtonClicked: [Bool] = Array(repeating: false, count: 6)
-    @State var bottomSheetPosition: BottomSheetPosition = .middle
-    @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
+    @State private var selectedRisk: [String] = Array()
     
 
     
     let riskTypes = [
-                ("Robbery", "robbery"),
+                ("Robbery", "Robbery"),
                 ("Burglary", "Burglary"),
                 ("S. Assault", "S. Assault"),
                 ("Kidnap", "Kidnap"),
@@ -124,9 +123,9 @@ struct SirenView: View {
             
             Button(action: {
                             Task {
-                                viewModel.sendMessageToSirenList(riskDescription: riskDescription);
-                                resetButtons();
-                                print(isButtonClicked)
+                                viewModel.sendMessageToSirenList(riskDescription: riskDescription)
+                                resetButtons()
+                                createUserActivity()
                             }
                         }) {
                             HStack {
@@ -145,8 +144,35 @@ struct SirenView: View {
         .edgesIgnoringSafeArea(.all)
         .tabViewStyle(DefaultTabViewStyle())
     }
+    
+    
+    
+    
+    
+    
+    
+    func automateSiren() {
+        var riskDescription = "\nThis trigger is sent with Siri"
+        viewModel.sendMessageToSirenList(riskDescription: riskDescription)
+        resetButtons()
+        createUserActivity()
+    }
+    
     func resetButtons() {
         isButtonClicked = Array(repeating: false, count: isButtonClicked.count)
+    }
+    
+    func createUserActivity(){
+        let activityType = "com.chiamakabrowneyes.Anya.automateSiren"
+        let activity = NSUserActivity(activityType: activityType)
+        activity.title = "Siren Call Trigger"
+        
+        activity.isEligibleForHandoff = true
+        activity.isEligibleForSearch = true
+        activity.isEligibleForPublicIndexing = true
+        
+        activity.becomeCurrent()
+        print("activity created")
     }
 }
 

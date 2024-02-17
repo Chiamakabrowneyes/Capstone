@@ -10,6 +10,8 @@ import MapKit
 
 struct LocationView: View {
     @StateObject private var viewModel: LocationViewModel
+    @StateObject private var dataService = AlertPointerManager()
+    @State private var iconScale: CGFloat = 3.0
     let user: User
 
     init(user: User) {
@@ -18,18 +20,26 @@ struct LocationView: View {
     }
 
     var body: some View {
-        Map(coordinateRegion: $viewModel.region)
-            .onAppear {
-                viewModel.checkIfLocationServicesIsEnabled()
-                viewModel.getCurrentLocation { coordinates in
-                    if let coordinates = coordinates {
-                        // Use the coordinates (latitude and longitude) as needed
-                        print("Latitude: \(coordinates.latitude), Longitude: \(coordinates.longitude)")
-                    } else {
-                        // Handle the case where location couldn't be determined
-                        print("Unable to determine location.")
-                    }
-                }
+        Map(coordinateRegion: $viewModel.region,  annotationItems: validPointers) { pointer in
+            MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: pointer.latitude ?? 0.0, longitude: pointer.longitude ?? 0.0)) {
+                       VStack {
+                           CustomMapView(iconScale: $iconScale)
+                                           .edgesIgnoringSafeArea(.all)
+                           
+                           Image(systemName: "ellipsis.circle.fill")
+                               .symbolRenderingMode(.palette)
+                               .foregroundStyle(Color("alertRed"))
+                               .opacity(0.1)
+                               .scaleEffect(iconScale)
+                               .frame(width: 5000, height: 5000)
+                       }
+                   }
+               }
+               .onAppear {
+                   DispatchQueue.main.async {
+                       dataService.fetchPointers()
+                       viewModel.checkIfLocationServicesIsEnabled()
+                       }
             }
             .colorScheme(.dark)
             .frame(width: 400, height: 500)
@@ -39,5 +49,16 @@ struct LocationView: View {
             
         Spacer()
     }
+    
+    
+    private var validPointers: [AlertPointer] {
+        print(dataService.pointers)
+        let valid = dataService.pointers.filter { $0.latitude != nil && $0.longitude != nil }
+        print("Valid pointers count: \(valid.count)")
+        return valid
+    }
+
 }
+
+
 

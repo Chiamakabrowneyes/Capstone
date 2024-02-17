@@ -99,4 +99,5 @@ final class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDele
                 locationManager.stopUpdatingLocation()
             }
         }
+    
 }

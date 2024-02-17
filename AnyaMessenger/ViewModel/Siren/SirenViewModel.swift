@@ -24,7 +24,6 @@ class SirenViewModel: ObservableObject {
         self.user = user
         self.locationViewModel = LocationViewModel(user: user)
         self.alertViewModel = AlertViewModel()
-
     }
     
     
@@ -62,6 +61,9 @@ class SirenViewModel: ObservableObject {
                     self.sendSirenMessage(messageText, receiverId: uid)
                 }
             }
+            
+            self.allRiskTypes = []
+            
         }
     }
     
@@ -101,29 +103,34 @@ class SirenViewModel: ObservableObject {
 
         // Retrieve coordinates
         self.getSirenCoordinates() { latitude, longitude in
-            self.alertViewModel.updateSirenData(riskTypes: ["fire", "theft"], latitudes: latitude, longitudes: longitude)
-            
-            if let latitude = latitude, let longitude = longitude {
-                self.reverseGeocode(latitude: latitude, longitude: longitude) { address in
-                    if let address = address {
-                        // Append location address to messageText
-                        messageText += "\nCurrent Location: \n\(address)\n"
-                    } else {
-                        print("Unable to retrieve location address.")
-                    }
-
-                    // Call the completion handler with the updated messageText
-                    messageText += "\n🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨"
-                    
-                    completion(messageText)
-                }
-            } else {
-                // Call the completion handler without updating messageText
-                messageText += "\n\n🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨"
+            DispatchQueue.main.async {
+                self.alertViewModel.updateSirenData(riskTypes: self.allRiskTypes, latitudes: latitude, longitudes: longitude)
                 
-                completion(messageText)
+                if let latitude = latitude, let longitude = longitude {
+                    self.reverseGeocode(latitude: latitude, longitude: longitude) { address in
+                        var updatedMessageText = messageText
+                        if let address = address {
+                            // Append location address to messageText safely within main queue
+                            updatedMessageText += "\nCurrent Location: \n\(address)\n"
+                        } else {
+                            print("Unable to retrieve location address.")
+                        }
+
+                        // Append final part of the message
+                        updatedMessageText += "\n🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨"
+                        
+                        // Call the completion handler with the updated messageText
+                        completion(updatedMessageText)
+                    }
+                } else {
+                    // Handle case without updating location
+                    var fallbackMessageText = messageText
+                    fallbackMessageText += "\n\n🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨  🚨"
+                    completion(fallbackMessageText)
+                }
             }
         }
+
     }
 
     
