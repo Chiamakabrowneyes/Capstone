@@ -18,7 +18,7 @@ class AIChatViewModel: ObservableObject {
     @Published var selectedModel: AIChatModel = .gpt3_5_turbo
     let chatId: String
     
-    @AppStorage("openai_api_key") var apiKey = "sk-proj-2a263YQznvCmYHkJ2RI3T3BlbkFJ8QiB6JZBiZjbcYpvYhkA"
+    @AppStorage("openai_api_key") var apiKey = OPENAI_API_KEY
     
     let db = Firestore.firestore()
     
