@@ -131,6 +131,7 @@ struct ObserveScene: View {
                             }
                         }
                     }
+                    
                 }
             }
             .navigationBarHidden(true)

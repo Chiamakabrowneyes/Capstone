@@ -26,6 +26,7 @@ class AuthSceneModel: NSObject, ObservableObject {
     @Published var currentUser: User?
     @Published var didSendResetPasswordLink = false
     @Published var didRegister = false
+    @Published var navigationPath = NavigationPath()
     private var tempCurrentUser: FirebaseAuth.User?
     
     static let shared = AuthSceneModel()

@@ -27,13 +27,19 @@ struct MainTabScene: View {
                             Text("Observe")
                         }
                         .tag(2)
+                    GPTView()
+                        .tabItem {
+                            Image(systemName: "brain")
+                            Text("AI Chat")
+                        }
+                        .tag(3)
                     
                     SettingsScene(user: user)
                         .tabItem {
                             Image(systemName: "gear")
                             Text("Settings")
                         }
-                        .tag(3)
+                        .tag(4)
                 }
                 .navigationTitle(tabTitle)
                 .navigationBarTitleDisplayMode(.inline)
@@ -51,7 +57,8 @@ struct MainTabScene: View {
         case 0: return "Siren"
         case 1: return "Chats"
         case 2: return "Observe"
-        case 3: return "Settings"
+        case 3: return "AI Chat"
+        case 4: return "Settings"
         default: return ""
         }
     }

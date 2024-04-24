@@ -97,12 +97,23 @@
 		7C775AE02AEA1D3D0050D996 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 7C775ADF2AEA1D3D0050D996 /* FirebaseStorage */; };
 		7C775AE42AEA28E10050D996 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C775AE32AEA28E10050D996 /* GoogleService-Info.plist */; };
 		7C7865232B4DE26B00447CAB /* ObserveScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7865222B4DE26B00447CAB /* ObserveScene.swift */; };
+		7C7B53E92B92C96C00F9EAC0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7C7B53E82B92C96C00F9EAC0 /* Alamofire */; };
+		7C7B53EB2B9434DC00F9EAC0 /* AIChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7B53EA2B9434DC00F9EAC0 /* AIChatListView.swift */; };
+		7C7B53ED2B94350500F9EAC0 /* AIChatListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7B53EC2B94350500F9EAC0 /* AIChatListViewModel.swift */; };
+		7C7B53EF2B94352500F9EAC0 /* AIChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7B53EE2B94352500F9EAC0 /* AIChat.swift */; };
 		7C84E24D2B11C23E0033C6BC /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C84E24C2B11C23D0033C6BC /* LocationView.swift */; };
 		7C84E2502B11CD340033C6BC /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C84E24F2B11CD340033C6BC /* LocationViewModel.swift */; };
 		7C8A25AD2AF70A4C0003EA87 /* SirenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8A25AC2AF70A4C0003EA87 /* SirenView.swift */; };
 		7C8A25B02AF7165C0003EA87 /* SirenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8A25AF2AF7165C0003EA87 /* SirenViewModel.swift */; };
 		7C8A25B22AFA813E0003EA87 /* CreateSirenListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8A25B12AFA813D0003EA87 /* CreateSirenListModel.swift */; };
 		7C8A25B42AFA831F0003EA87 /* AddSirenHerosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8A25B32AFA831E0003EA87 /* AddSirenHerosViewModel.swift */; };
+		7CB4B6642B94B4080020496E /* AIProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB4B6632B94B4080020496E /* AIProfileView.swift */; };
+		7CB4B6662B94B4490020496E /* AIChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB4B6652B94B4490020496E /* AIChatView.swift */; };
+		7CB4B6682B94B5360020496E /* AIChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB4B6672B94B5360020496E /* AIChatViewModel.swift */; };
+		7CB4B66B2B94BCF40020496E /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 7CB4B66A2B94BCF40020496E /* OpenAI */; };
+		7CB4B66D2B9509430020496E /* example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB4B66C2B9509430020496E /* example.swift */; };
+		7CB4B66F2B950A3B0020496E /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB4B66E2B950A3B0020496E /* AppState.swift */; };
+		7CB4B6712B950BE80020496E /* GPTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB4B6702B950BE80020496E /* GPTView.swift */; };
 		7CEF55262B4CBDB200D750BB /* SirenRiskButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEF55252B4CBDB200D750BB /* SirenRiskButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -191,12 +202,21 @@
 		7C775AD12AEA182D0050D996 /* AnyaMessenger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AnyaMessenger.entitlements; sourceTree = "<group>"; };
 		7C775AE32AEA28E10050D996 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7C7865222B4DE26B00447CAB /* ObserveScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveScene.swift; sourceTree = "<group>"; };
+		7C7B53EA2B9434DC00F9EAC0 /* AIChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatListView.swift; sourceTree = "<group>"; };
+		7C7B53EC2B94350500F9EAC0 /* AIChatListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatListViewModel.swift; sourceTree = "<group>"; };
+		7C7B53EE2B94352500F9EAC0 /* AIChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChat.swift; sourceTree = "<group>"; };
 		7C84E24C2B11C23D0033C6BC /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		7C84E24F2B11CD340033C6BC /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		7C8A25AC2AF70A4C0003EA87 /* SirenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SirenView.swift; sourceTree = "<group>"; };
 		7C8A25AF2AF7165C0003EA87 /* SirenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SirenViewModel.swift; sourceTree = "<group>"; };
 		7C8A25B12AFA813D0003EA87 /* CreateSirenListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSirenListModel.swift; sourceTree = "<group>"; };
 		7C8A25B32AFA831E0003EA87 /* AddSirenHerosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSirenHerosViewModel.swift; sourceTree = "<group>"; };
+		7CB4B6632B94B4080020496E /* AIProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIProfileView.swift; sourceTree = "<group>"; };
+		7CB4B6652B94B4490020496E /* AIChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatView.swift; sourceTree = "<group>"; };
+		7CB4B6672B94B5360020496E /* AIChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatViewModel.swift; sourceTree = "<group>"; };
+		7CB4B66C2B9509430020496E /* example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = example.swift; sourceTree = "<group>"; };
+		7CB4B66E2B950A3B0020496E /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		7CB4B6702B950BE80020496E /* GPTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTView.swift; sourceTree = "<group>"; };
 		7CEF55252B4CBDB200D750BB /* SirenRiskButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SirenRiskButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -210,10 +230,12 @@
 				7C775AE02AEA1D3D0050D996 /* FirebaseStorage in Frameworks */,
 				7C775ADC2AEA1D3D0050D996 /* FirebaseFunctions in Frameworks */,
 				7C775A522ADB49660050D996 /* Kingfisher in Frameworks */,
+				7C7B53E92B92C96C00F9EAC0 /* Alamofire in Frameworks */,
 				7C059BF22B4F6640009738DC /* BottomSheet in Frameworks */,
 				7C775AD42AEA1D3D0050D996 /* FirebaseAnalytics in Frameworks */,
 				7C775AD82AEA1D3D0050D996 /* FirebaseFirestore in Frameworks */,
 				7C775AD62AEA1D3D0050D996 /* FirebaseAuth in Frameworks */,
+				7CB4B66B2B94BCF40020496E /* OpenAI in Frameworks */,
 				7C775ADA2AEA1D3D0050D996 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,6 +330,7 @@
 		7C66FCE72AC8C8060060AE8E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				7C7B53D92B928A3200F9EAC0 /* AIChat */,
 				7C059BFD2B4F6C98009738DC /* Observe */,
 				7C84E24E2B11CD230033C6BC /* Location */,
 				7C8A25AE2AF7164B0003EA87 /* Siren */,
@@ -321,6 +344,7 @@
 		7C66FCE82AC8C80F0060AE8E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7C7B53D62B928A1900F9EAC0 /* AIChat */,
 				7C7865212B4DE25600447CAB /* Observe */,
 				7C84E24B2B11C2230033C6BC /* Location */,
 				7C8A25AB2AF70A3C0003EA87 /* Siren */,
@@ -345,6 +369,7 @@
 				7C059BF72B4F6C2E009738DC /* ReportModel.swift */,
 				7C6DF8642B52E81F00982E8C /* AlertPointer.swift */,
 				7C0A59CC2B7E333200DBD9DD /* MarkerAnnotation.swift */,
+				7C7B53EE2B94352500F9EAC0 /* AIChat.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -480,6 +505,28 @@
 			path = Observe;
 			sourceTree = "<group>";
 		};
+		7C7B53D62B928A1900F9EAC0 /* AIChat */ = {
+			isa = PBXGroup;
+			children = (
+				7C7B53EA2B9434DC00F9EAC0 /* AIChatListView.swift */,
+				7CB4B6632B94B4080020496E /* AIProfileView.swift */,
+				7CB4B6652B94B4490020496E /* AIChatView.swift */,
+				7CB4B66C2B9509430020496E /* example.swift */,
+				7CB4B6702B950BE80020496E /* GPTView.swift */,
+			);
+			path = AIChat;
+			sourceTree = "<group>";
+		};
+		7C7B53D92B928A3200F9EAC0 /* AIChat */ = {
+			isa = PBXGroup;
+			children = (
+				7C7B53EC2B94350500F9EAC0 /* AIChatListViewModel.swift */,
+				7CB4B6672B94B5360020496E /* AIChatViewModel.swift */,
+				7CB4B66E2B950A3B0020496E /* AppState.swift */,
+			);
+			path = AIChat;
+			sourceTree = "<group>";
+		};
 		7C84E24B2B11C2230033C6BC /* Location */ = {
 			isa = PBXGroup;
 			children = (
@@ -545,6 +592,8 @@
 				7C775ADD2AEA1D3D0050D996 /* FirebaseMessaging */,
 				7C775ADF2AEA1D3D0050D996 /* FirebaseStorage */,
 				7C059BF12B4F6640009738DC /* BottomSheet */,
+				7C7B53E82B92C96C00F9EAC0 /* Alamofire */,
+				7CB4B66A2B94BCF40020496E /* OpenAI */,
 			);
 			productName = AnyaMessenger;
 			productReference = 7C66FCD42AC8C7D90060AE8E /* AnyaMessenger.app */;
@@ -579,6 +628,8 @@
 				7C775AC92AE44E520050D996 /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 				7C775AD22AEA1D3C0050D996 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				7C059BF02B4F6640009738DC /* XCRemoteSwiftPackageReference "BottomSheet" */,
+				7C7B53E72B92C96C00F9EAC0 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				7CB4B6692B94BCF40020496E /* XCRemoteSwiftPackageReference "openai" */,
 			);
 			productRefGroup = 7C66FCD52AC8C7D90060AE8E /* Products */;
 			projectDirPath = "";
@@ -608,11 +659,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CB4B6662B94B4490020496E /* AIChatView.swift in Sources */,
 				7C8A25B02AF7165C0003EA87 /* SirenViewModel.swift in Sources */,
 				7C775A872AE443A60050D996 /* CustomTextField.swift in Sources */,
 				7C66FCFA2AC8E5770060AE8E /* SettingsScene.swift in Sources */,
 				7C66FCF82AC8E5610060AE8E /* ChatScene.swift in Sources */,
 				7C66FD072AC905170060AE8E /* StatusSelectorView.swift in Sources */,
+				7C7B53EF2B94352500F9EAC0 /* AIChat.swift in Sources */,
 				7C8A25B22AFA813E0003EA87 /* CreateSirenListModel.swift in Sources */,
 				7C059BF42B4F6BC1009738DC /* ForecastView.swift in Sources */,
 				7C66FCEE2AC8C8930060AE8E /* SignupView.swift in Sources */,
@@ -620,13 +673,16 @@
 				7C775A8B2AE443EF0050D996 /* LazyView.swift in Sources */,
 				7C84E2502B11CD340033C6BC /* LocationViewModel.swift in Sources */,
 				7C059C072B4F6EC0009738DC /* Shapes.swift in Sources */,
+				7C7B53EB2B9434DC00F9EAC0 /* AIChatListView.swift in Sources */,
 				7C66FCEC2AC8C8820060AE8E /* LoginView.swift in Sources */,
+				7CB4B6682B94B5360020496E /* AIChatViewModel.swift in Sources */,
 				7C775A662AE43B380050D996 /* SelectableUserCell.swift in Sources */,
 				7C74C9CB2B69ED980000DC3F /* SirenCallIntentHandler.swift in Sources */,
 				7CEF55262B4CBDB200D750BB /* SirenRiskButton.swift in Sources */,
 				7C66FD012AC8EC0B0060AE8E /* SettingsCell.swift in Sources */,
 				7C775A852AE442B10050D996 /* SettingsViewModel.swift in Sources */,
 				7C775A892AE443C50050D996 /* CustomSecureField.swift in Sources */,
+				7CB4B66F2B950A3B0020496E /* AppState.swift in Sources */,
 				7C0A59D12B7F16D400DBD9DD /* CustomMapView.swift in Sources */,
 				7C66FD232AC9C0840060AE8E /* MessageScene.swift in Sources */,
 				7C775A802AE441460050D996 /* ConversationsSceneModel.swift in Sources */,
@@ -634,6 +690,7 @@
 				7C775AC82AE44DAD0050D996 /* SceneDelegate.swift in Sources */,
 				7C775A772AE43F920050D996 /* ChannelsSceneModel.swift in Sources */,
 				7C775A792AE43FC50050D996 /* ChannelChatSceneModel.swift in Sources */,
+				7CB4B66D2B9509430020496E /* example.swift in Sources */,
 				7C775A682AE43B5A0050D996 /* GroupMembersScene.swift in Sources */,
 				7C66FCFC2AC8E5840060AE8E /* ChannelsScene.swift in Sources */,
 				7C775A402ADB36E10050D996 /* User.swift in Sources */,
@@ -659,6 +716,7 @@
 				7C66FD032AC8F0FC0060AE8E /* SettingsCellSceneModel.swift in Sources */,
 				7C775A8F2AE444460050D996 /* AppDelegate.swift in Sources */,
 				7C74C9CD2B6A7D320000DC3F /* Intent.swift in Sources */,
+				7C7B53ED2B94350500F9EAC0 /* AIChatListViewModel.swift in Sources */,
 				7C775A702AE43BF90050D996 /* ChannelChatScene.swift in Sources */,
 				7C059BFC2B4F6C6F009738DC /* TabView.swift in Sources */,
 				7C0A59D32B7FE71A00DBD9DD /* ReportViewModel.swift in Sources */,
@@ -683,11 +741,13 @@
 				7C66FD152AC943CB0060AE8E /* ImagePicker.swift in Sources */,
 				7C0A59CD2B7E333200DBD9DD /* MarkerAnnotation.swift in Sources */,
 				7C8A25B42AFA831F0003EA87 /* AddSirenHerosViewModel.swift in Sources */,
+				7CB4B6712B950BE80020496E /* GPTView.swift in Sources */,
 				7C059BF82B4F6C2E009738DC /* ReportModel.swift in Sources */,
 				7C0A59CF2B7EC86C00DBD9DD /* AlertPointerManager.swift in Sources */,
 				7C66FD272AC9D5D70060AE8E /* TextMessage.swift in Sources */,
 				7C66FCF32AC8E2280060AE8E /* MainTabScene.swift in Sources */,
 				7C8A25AD2AF70A4C0003EA87 /* SirenView.swift in Sources */,
+				7CB4B6642B94B4080020496E /* AIProfileView.swift in Sources */,
 				7C6DF8672B52EAB300982E8C /* AlertViewModel.swift in Sources */,
 				7C4014BA2ACF3AAA00A050D5 /* AuthSceneModel.swift in Sources */,
 				7C66FCFF2AC8E59B0060AE8E /* ConversationsScene.swift in Sources */,
@@ -953,6 +1013,22 @@
 				minimumVersion = 10.0.0;
 			};
 		};
+		7C7B53E72B92C96C00F9EAC0 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		7CB4B6692B94BCF40020496E /* XCRemoteSwiftPackageReference "openai" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/macpaw/openai.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1005,6 +1081,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7C775AD22AEA1D3C0050D996 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		7C7B53E82B92C96C00F9EAC0 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7C7B53E72B92C96C00F9EAC0 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		7CB4B66A2B94BCF40020496E /* OpenAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7CB4B6692B94BCF40020496E /* XCRemoteSwiftPackageReference "openai" */;
+			productName = OpenAI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

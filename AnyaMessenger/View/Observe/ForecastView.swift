@@ -43,6 +43,7 @@ struct ForecastView: View {
                     .padding(.vertical, 20)
                 }
                 .padding(.horizontal, 20)
+                
                 // MARK: Background Image
                 LocationView(user: user)
             }
