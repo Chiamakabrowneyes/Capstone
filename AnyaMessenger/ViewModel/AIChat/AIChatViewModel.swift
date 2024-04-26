@@ -1,15 +1,14 @@
-//
 //  AIChatViewModel.swift
 //  AnyaMessenger
 //
 //  Created by Chiamaka U on 3/3/24.
 //
 
-import OpenAI
 import Foundation
 import FirebaseFirestoreSwift
 import FirebaseFirestore
 import SwiftUI
+import GoogleGenerativeAI  // Import the Google Generative AI SDK
 
 class AIChatViewModel: ObservableObject {
     @Published var chat: AppChat?
@@ -17,20 +16,16 @@ class AIChatViewModel: ObservableObject {
     @Published var messageText: String = ""
     @Published var selectedModel: AIChatModel = .gpt3_5_turbo
     let chatId: String
-    
-    @AppStorage("openai_api_key") var apiKey = OPENAI_API_KEY
-    
+
     let db = Firestore.firestore()
-    
+    private var chatSession: Chat?  // Handle for the chat session with Gemini
+
     init(chatId: String) {
         self.chatId = chatId
+        self.startChatSession()  // Start the chat session when the ViewModel is initialized
     }
-    
+
     func fetchData() {
-//        self.messages = [
-//            AppMessage(id: "1", text: "Hello hw are you", role: .user, createdAt: Date()),
-//            AppMessage(id: "2", text: "Im good thanks", role: .assistant, createdAt: Date())
-//        ]
         db.collection("chats").document(chatId).getDocument(as: AppChat.self) { result in
             switch result {
             case .success(let success):
@@ -57,8 +52,14 @@ class AIChatViewModel: ObservableObject {
         }
     }
     
+    private func startChatSession() {
+        if chatSession == nil {
+            let history = messages.compactMap { try? ModelContent(role: $0.role.rawValue, parts: [$0.text]) }
+            chatSession = GenerativeModel(name: "gemini-pro", apiKey: GEMINI_API_KEY).startChat(history: history)
+        }
+    }
+    
     func sendMessage() async throws {
-        print(apiKey)
         var newMessage = AppMessage(id: UUID().uuidString, text: messageText, role: .user)
         
         do {
@@ -78,7 +79,6 @@ class AIChatViewModel: ObservableObject {
         }
         
         try await generateResponse(for: newMessage)
-        
     }
     
     private func storeMessage(message: AppMessage) throws -> DocumentReference {
@@ -93,33 +93,43 @@ class AIChatViewModel: ObservableObject {
     }
     
     private func generateResponse(for message: AppMessage) async throws {
-        let openAI = OpenAI(apiToken: apiKey)
-        let queryMessages = messages.map { appMessage in
-            Chat(role: appMessage.role, content: appMessage.text)
-        }
-        let query = ChatQuery(model: chat?.model?.model ?? .gpt3_5Turbo, messages: queryMessages)
-        for try await result in openAI.chatsStream(query: query) {
-            guard let newText = result.choices.first?.delta.content else { continue }
-            await MainActor.run {
-                if let lastMessage = messages.last, lastMessage.role != .user {
-                    messages[messages.count - 1].text += newText
-                } else {
-                    let newMessage = AppMessage(id: result.id, text: newText, role: .assistant)
-                    messages.append(newMessage)
-                }
-            }
+        guard let chatSession = self.chatSession else {
+            startChatSession()
+            return
         }
         
-        if let lastMessage = messages.last {
-            _ = try storeMessage(message: lastMessage)
+        do {
+            let response = try await chatSession.sendMessage(message.text)
+            guard let newText = response.text else { return }
+            await MainActor.run {
+                let newMessage = AppMessage(id: UUID().uuidString, text: newText, role: .assistant)
+                messages.append(newMessage)
+            }
+            if let lastMessage = messages.last {
+                _ = try storeMessage(message: lastMessage)
+            }
+        } catch {
+            print("Failed to generate response: \(error)")
         }
     }
 }
 
 
-struct AppMessage: Identifiable, Codable, Hashable {
-    @DocumentID var id: String?
-    var text: String
-    let role: Chat.Role
-    var createdAt: FirestoreDate = FirestoreDate()
+enum ChatRole: String, Codable, Hashable {
+    case user
+    case assistant
 }
+
+// Make sure AppMessage conforms to Codable and Hashable
+struct AppMessage: Identifiable, Codable, Hashable {
+    var id: String?
+    var text: String
+    let role: ChatRole
+}
+
+extension AppMessage: Equatable {
+    static func == (lhs: AppMessage, rhs: AppMessage) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+

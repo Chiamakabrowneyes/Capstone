@@ -66,7 +66,7 @@ DerivedData/
 *.dSYM.zip
 *.dSYM
 
-AnyaMessenger/Utils/Keys.swift
+{Project_location}/KeyConstant.swift
 
 ## Playgrounds
 timeline.xctimeline

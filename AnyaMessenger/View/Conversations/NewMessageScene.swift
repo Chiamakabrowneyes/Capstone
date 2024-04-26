@@ -18,8 +18,8 @@ struct NewMessageScene: View {
     @Binding var user: User?
     @State private var sirenListId: String?
     @ObservedObject var viewModel = NewMessageSceneModel(config: .chat)
-    
-    
+
+
     var body: some View {
         ScrollView {
             // Displays a SearchBar with a bindable text and isEditing state.
@@ -27,12 +27,12 @@ struct NewMessageScene: View {
             SearchBar(text: $searchText, isEditing: $isEditing)
                 .onTapGesture {isEditing.toggle() }
                 .padding()
-            
-            
+
+
             VStack(alignment: .leading) {
                 ForEach(searchText.isEmpty ? viewModel.users : viewModel.filteredUsers(searchText)) { user in
                     HStack { Spacer() }
-                    
+
                     Button(action: {
                         self.show.toggle()
                         self.startChat.toggle()

@@ -51,6 +51,7 @@
 		7C66FD272AC9D5D70060AE8E /* TextMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66FD262AC9D5D70060AE8E /* TextMessage.swift */; };
 		7C66FD292AC9D6500060AE8E /* EditProfileSceneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66FD282AC9D6500060AE8E /* EditProfileSceneModel.swift */; };
 		7C6B75992BD9A6A900B5A85F /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6B75982BD9A6A900B5A85F /* Keys.swift */; };
+		7C6B759C2BDAACD500B5A85F /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = 7C6B759B2BDAACD500B5A85F /* GoogleGenerativeAI */; };
 		7C6DF8652B52E81F00982E8C /* AlertPointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6DF8642B52E81F00982E8C /* AlertPointer.swift */; };
 		7C6DF8672B52EAB300982E8C /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6DF8662B52EAB300982E8C /* AlertViewModel.swift */; };
 		7C74C9CB2B69ED980000DC3F /* SirenCallIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C74C9CA2B69ED980000DC3F /* SirenCallIntentHandler.swift */; };
@@ -232,6 +233,7 @@
 				7C775AE02AEA1D3D0050D996 /* FirebaseStorage in Frameworks */,
 				7C775ADC2AEA1D3D0050D996 /* FirebaseFunctions in Frameworks */,
 				7C775A522ADB49660050D996 /* Kingfisher in Frameworks */,
+				7C6B759C2BDAACD500B5A85F /* GoogleGenerativeAI in Frameworks */,
 				7C7B53E92B92C96C00F9EAC0 /* Alamofire in Frameworks */,
 				7C059BF22B4F6640009738DC /* BottomSheet in Frameworks */,
 				7C775AD42AEA1D3D0050D996 /* FirebaseAnalytics in Frameworks */,
@@ -597,6 +599,7 @@
 				7C059BF12B4F6640009738DC /* BottomSheet */,
 				7C7B53E82B92C96C00F9EAC0 /* Alamofire */,
 				7CB4B66A2B94BCF40020496E /* OpenAI */,
+				7C6B759B2BDAACD500B5A85F /* GoogleGenerativeAI */,
 			);
 			productName = AnyaMessenger;
 			productReference = 7C66FCD42AC8C7D90060AE8E /* AnyaMessenger.app */;
@@ -633,6 +636,7 @@
 				7C059BF02B4F6640009738DC /* XCRemoteSwiftPackageReference "BottomSheet" */,
 				7C7B53E72B92C96C00F9EAC0 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				7CB4B6692B94BCF40020496E /* XCRemoteSwiftPackageReference "openai" */,
+				7C6B759A2BDAACD400B5A85F /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
 			);
 			productRefGroup = 7C66FCD52AC8C7D90060AE8E /* Products */;
 			projectDirPath = "";
@@ -993,6 +997,14 @@
 				minimumVersion = 1.4.5;
 			};
 		};
+		7C6B759A2BDAACD400B5A85F /* XCRemoteSwiftPackageReference "generative-ai-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/generative-ai-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.0;
+			};
+		};
 		7C775A502ADB49660050D996 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -1040,6 +1052,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7C059BF02B4F6640009738DC /* XCRemoteSwiftPackageReference "BottomSheet" */;
 			productName = BottomSheet;
+		};
+		7C6B759B2BDAACD500B5A85F /* GoogleGenerativeAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7C6B759A2BDAACD400B5A85F /* XCRemoteSwiftPackageReference "generative-ai-swift" */;
+			productName = GoogleGenerativeAI;
 		};
 		7C775A512ADB49660050D996 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
