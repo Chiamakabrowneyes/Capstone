@@ -60,7 +60,8 @@ class AIChatViewModel: ObservableObject {
     }
     
     func sendMessage() async throws {
-        var newMessage = AppMessage(id: UUID().uuidString, text: messageText, role: .user)
+        
+        var newMessage = AppMessage(id: UUID().uuidString, text: messageText , role: .user)
         
         do {
             let documentRef = try storeMessage(message: newMessage)
@@ -75,10 +76,15 @@ class AIChatViewModel: ObservableObject {
         
         await MainActor.run { [newMessage] in
             messages.append(newMessage)
-            messageText = ""
         }
         
-        try await generateResponse(for: newMessage)
+        var preText = "In 50 words: " + messageText + ". Please don't use asterisks"
+        var reqMessage = AppMessage(id: UUID().uuidString, text: preText, role: .user)
+        
+        try await generateResponse(for: reqMessage)
+        messageText = ""
+        
+        
     }
     
     private func storeMessage(message: AppMessage) throws -> DocumentReference {
