@@ -18,23 +18,26 @@ class AIChatViewModel: ObservableObject {
     let chatId: String
 
     let db = Firestore.firestore()
-    private var chatSession: Chat?  // Handle for the chat session with Gemini
-
+    private var chatSession: Chat?
+    
     init(chatId: String) {
         self.chatId = chatId
-        self.startChatSession()  // Start the chat session when the ViewModel is initialized
+        self.startChatSession()
     }
 
     func fetchData() {
         db.collection("chats").document(chatId).getDocument(as: AppChat.self) { result in
             switch result {
+                
             case .success(let success):
                 DispatchQueue.main.async {
                     self.chat = success
                 }
+                
             case .failure(let failure):
                 print(failure)
             }
+            
         }
         
         db.collection("aichats").document(chatId).collection("aimessages").getDocuments { querySnapshot, error in
@@ -52,12 +55,14 @@ class AIChatViewModel: ObservableObject {
         }
     }
     
+    
     private func startChatSession() {
         if chatSession == nil {
             let history = messages.compactMap { try? ModelContent(role: $0.role.rawValue, parts: [$0.text]) }
             chatSession = GenerativeModel(name: "gemini-pro", apiKey: GEMINI_API_KEY).startChat(history: history)
         }
     }
+    
     
     func sendMessage() async throws {
         
@@ -78,18 +83,22 @@ class AIChatViewModel: ObservableObject {
             messages.append(newMessage)
         }
         
+        
         var preText = "In 50 words: " + messageText + ". Please don't use asterisks"
         var reqMessage = AppMessage(id: UUID().uuidString, text: preText, role: .user)
         
-        try await generateResponse(for: reqMessage)
         messageText = ""
-        
+        try await generateResponse(for: reqMessage)
+       
         
     }
+    
+    
     
     private func storeMessage(message: AppMessage) throws -> DocumentReference {
         return try db.collection("aichats").document(chatId).collection("aimessages").addDocument(from: message)
     }
+    
     
     private func setupNewChat() {
         db.collection("aichats").document(chatId).updateData(["model": selectedModel.rawValue])
@@ -127,6 +136,7 @@ enum ChatRole: String, Codable, Hashable {
 }
 
 // Make sure AppMessage conforms to Codable and Hashable
+
 struct AppMessage: Identifiable, Codable, Hashable {
     var id: String?
     var text: String

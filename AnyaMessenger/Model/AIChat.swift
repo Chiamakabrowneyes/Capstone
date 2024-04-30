@@ -29,7 +29,10 @@ struct AppChat: Codable, Identifiable {
     
     var lastMessageTimeAgo: String {
         let now = Date()
-        let components = Calendar.current.dateComponents([.second, .minute, .hour, .day, .month, .year], from: lastMessageSent.date, to: now)
+        let components = Calendar.current.dateComponents(
+            [.second, .minute, .hour, .day, .month, .year],
+            from: lastMessageSent.date, to: now
+        )
         
         let timeUnits: [(value: Int?, unit: String)] = [
             (components.year, "year"),
@@ -48,6 +51,9 @@ struct AppChat: Codable, Identifiable {
         return "just now"
     }
 }
+
+
+
 
 enum AIChatModel: String, Codable, CaseIterable, Hashable {
     case gpt3_5_turbo = "Basic"
